@@ -1,0 +1,6 @@
+{
+    "$id": "smallint",
+    "type": "integer",
+    "minimum": -32767,
+    "maximum": 32767
+}

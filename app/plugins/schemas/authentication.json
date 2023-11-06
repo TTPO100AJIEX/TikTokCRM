@@ -1,0 +1,6 @@
+{
+    "$id": "authentication",
+    "type": "string",
+    "minLength": 32,
+    "maxLength": 32
+}

@@ -1,0 +1,46 @@
+{
+  "name": "tiktokcrm",
+  "type": "module",
+  "author": "TTPO100AJIEX",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "app": "node app/index.js",
+    "db:backup": "node database/scripts/backup.js",
+    "db:delete": "node database/scripts/delete.js",
+    "db:create": "node database/scripts/create.js",
+    "db:setup": "node database/scripts/setup.js",
+    "db:fill": "node database/scripts/fill.js",
+    "db:full": "npm run db:create && npm run db:setup && npm run db:fill",
+    "db:recreate": "npm run db:backup && npm run db:delete && npm run db:full"
+  },
+  "dependencies": {
+    "@fastify/circuit-breaker": "^3.2.0",
+    "@fastify/compress": "^6.4.0",
+    "@fastify/cookie": "^9.1.0",
+    "@fastify/cors": "^8.4.0",
+    "@fastify/formbody": "^7.4.0",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/rate-limit": "^8.0.3",
+    "@fastify/static": "^6.11.2",
+    "@fastify/swagger": "^8.12.0",
+    "@fastify/under-pressure": "^8.3.0",
+    "@fastify/view": "^8.2.0",
+    "ajv-formats": "^2.1.1",
+    "common": "file:common",
+    "ejs": "^3.1.9",
+    "fastify": "^4.24.3",
+    "fastify-plugin": "^4.5.1",
+    "html-minifier": "^4.0.0",
+    "ioredis": "^5.3.2",
+    "jsonpointer": "^5.0.1",
+    "pg": "^8.11.3",
+    "pg-format": "^1.0.4",
+    "postgres-interval": "^4.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TTPO100AJIEX/TikTokCRM.git"
+  }
+}

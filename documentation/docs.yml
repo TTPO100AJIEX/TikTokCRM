@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  version: 8.12.0
+  title: "@fastify/swagger"
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: __Secure-Authorization
+      description: Default cookie authorization
+  schemas:
+    def-0:
+      type: string
+      minLength: 32
+      maxLength: 32
+      title: authentication
+    def-1:
+      type: integer
+      minimum: 1
+      maximum: 32767
+      title: positive_smallint
+    def-2:
+      type: integer
+      minimum: -32767
+      maximum: 32767
+      title: smallint
+    def-3:
+      type: integer
+      minimum: 0
+      title: uint
+    def-4:
+      type: integer
+      minimum: 0
+      maximum: 32767
+      title: usmallint
+paths:
+  /serverstatus:
+    get:
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  metrics:
+                    type: object
+                    properties:
+                      eventLoopDelay:
+                        type: number
+                      rssBytes:
+                        type: number
+                      heapUsed:
+                        type: number
+                      eventLoopUtilized:
+                        type: number
+                  uptime:
+                    type: number
+  /favicon.ico:
+    get:
+      responses:
+        "200":
+          description: Default Response
+  /apple-touch-icon.png:
+    get:
+      responses:
+        "200":
+          description: Default Response
+  /robots.txt:
+    get:
+      responses:
+        "200":
+          description: Default Response
+  /sitemap.xml:
+    get:
+      responses:
+        "200":
+          description: Default Response
+  /login:
+    get:
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/def-0"
+          in: query
+          name: state
+          required: true
+      responses:
+        "200":
+          description: Default Response
+  /logout:
+    get:
+      responses:
+        "200":
+          description: Default Response
+  /:
+    get:
+      responses:
+        "200":
+          description: Default Response
+servers:
+  url: https://localhost.xyz
+  description: Main server

@@ -1,0 +1,7 @@
+async function register(app, options)
+{
+    app.get("/", { config: { access: "public" } }, (req, res) => res.render("layouts/general/index.ejs"));
+}
+
+import plugin from 'fastify-plugin';
+export default plugin(register, { name: 'public-routes', encapsulate: false });

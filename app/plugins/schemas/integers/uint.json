@@ -1,0 +1,5 @@
+{
+    "$id": "uint",
+    "type": "integer",
+    "minimum": 0
+}

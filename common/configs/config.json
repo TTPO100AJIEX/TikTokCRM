@@ -1,0 +1,37 @@
+{
+    "stage": "testing",
+    "application":
+    {
+        "name": "TikTokCRM"
+    },
+
+    "postgreSQL":
+    {
+        "host": "localhost",
+        "port": 5432,
+        "database": "tiktokcrm",
+        "user": "postgres",
+        "password": "F3gH3!0jEq"
+    },
+
+    "redis":
+    {
+        "port": 6379,
+        "host": "localhost",
+        "password": "F3gH3!0jEq",
+        "database": 0
+    },
+
+    "website":
+    {
+        "port": 443,
+        "host": "localhost.xyz",
+        "ssl_key": "common/configs/ssl/privkey.pem",
+        "ssl_cert": "common/configs/ssl/fullchain.pem",
+
+        "secret": "230odiXKUiExkHAQ3UMTqRzDnGxN2loy",
+        "authentication_expiration": "15m",
+        "authorization_expiration": "1h",
+        "user_data_expiration": "5m"
+    }
+}

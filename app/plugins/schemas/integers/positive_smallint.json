@@ -1,0 +1,6 @@
+{
+    "$id": "positive_smallint",
+    "type": "integer",
+    "minimum": 1,
+    "maximum": 32767
+}
