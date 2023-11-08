@@ -1,41 +1,16 @@
-@media (prefers-reduced-motion: reduce)
-{
-    *, *::before, *::after
-    {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-
-
 @layer normalization
 {
     :root, ::backdrop
     {
-        --brand-color: hsl(214, 90%, 50%);
-        --background-color: hsl(214, 8%, 92%);
-        --surface-color: hsl(214, 11%, 95%);
-        --border-color: hsl(214, 19%, 40%);
-        --shadow-color: hsl(214, 7%, 65%);
+        --brand-color: hsl(199, 90%, 50%);
+        --background-color: hsl(240, 21%, 10%);
+        --surface-color: hsl(240, 19%, 15%);
+        --border-color: hsl(240, 15%, 19%);
 
-        --text-brand-color: hsl(214, 90%, 33%);
-        --text-major-color: hsl(214, 3%, 12%);
-        --text-minor-color: hsl(214, 5%, 26%);
-        --text-placeholder-color: hsl(214, 10%, 38%);
-        --text-inverse-color: hsl(214, 2%, 10%);
-
-        --color-red: hsl(353, 85%, 63%);
-        --color-green: hsl(115, 75%, 53%);
-        --color-yellow: hsl(47, 75%, 53%);
-        --color-purple: hsl(300, 85%, 53%);
-        
-        --color-red-transparent: hsla(353, 85%, 63%, 0.1);
-        --color-green-transparent: hsla(115, 75%, 53%, 0.1);
-        --color-yellow-transparent: hsla(47, 75%, 53%, 0.1);
-        --color-purple-transparent: hsla(300, 85%, 53%, 0.1);
+        --text-major-color: hsl(0, 0%, 100%);
+        --text-minor-color: hsl(219, 12%, 56%);
+        --text-placeholder-color: hsl(219, 12%, 56%);
+        --text-inverse-color: hsl(240, 21%, 10%);
     }
 
     :root, ::backdrop
@@ -47,147 +22,58 @@
         --line-height: 1.66;
         --outline-width: 2px;
         
-        /* [ 400; 1900; 3400 ] */
-        --font-size-tiny:     clamp(13rem / 16, (191rem + 16vw) / 240, 15rem / 16);  /* [ 13, 14, 15 ] */
-        --font-size-regular:  clamp(15rem / 16, (217rem + 32vw) / 240, 19rem / 16);  /* [ 15, 17, 19 ] */
-        --font-size-medium:   clamp(17rem / 16, (243rem + 48vw) / 240, 23rem / 16);  /* [ 17, 20, 23 ] */
-        --font-size-big:      clamp(20rem / 16, (284rem + 64vw) / 240, 28rem / 16);  /* [ 20, 24, 28 ] */
-        --font-size-large:    clamp(24rem / 16, (340rem + 80vw) / 240, 34rem / 16);  /* [ 24, 29, 34 ] */
-        --font-size-huge:     clamp(29rem / 16, (411rem + 96vw) / 240, 41rem / 16);  /* [ 29, 35, 41 ] */
-        --font-size-enormous: clamp(35rem / 16, (497rem + 112vw) / 240, 49rem / 16); /* [ 35, 42, 49 ] */
-        --font-size-small:    calc((var(--font-size-tiny) + var(--font-size-regular)) / 2);
-
+        --font-size-regular:  15px;
+        --font-size-medium:   17px;
+        --font-size-big:      20px;
 
         --sizing-interactive: calc(3 * var(--outline-width));
-        --sizing-tiny:        var(--font-size-tiny);
-        --sizing-small:       var(--font-size-small);
         --sizing-regular:     var(--font-size-regular);
         --sizing-medium:      var(--font-size-medium);
         --sizing-big:         var(--font-size-big);
-        --sizing-large:       var(--font-size-large);
-        --sizing-huge:        var(--font-size-huge);
-        --sizing-enormous:    var(--font-size-enormous);
-
 
         --padding-vertical-interactive: calc(var(--sizing-interactive) / 1.75);
-        --padding-vertical-tiny:        calc(var(--sizing-tiny)        / 1.75);
-        --padding-vertical-small:       calc(var(--sizing-small)       / 1.75);
         --padding-vertical-regular:     calc(var(--sizing-regular)     / 1.75);
         --padding-vertical-medium:      calc(var(--sizing-medium)      / 1.75);
         --padding-vertical-big:         calc(var(--sizing-big)         / 1.75);
-        --padding-vertical-large:       calc(var(--sizing-large)       / 1.75);
-        --padding-vertical-huge:        calc(var(--sizing-huge)        / 1.75);
-        --padding-vertical-enormous:    calc(var(--sizing-enormous)    / 1.75);
 
         --padding-horizontal-interactive: calc(var(--sizing-interactive) / 1.00);
-        --padding-horizontal-tiny:        calc(var(--sizing-tiny)        / 1.00);
-        --padding-horizontal-small:       calc(var(--sizing-small)       / 1.00);
         --padding-horizontal-regular:     calc(var(--sizing-regular)     / 1.00);
         --padding-horizontal-medium:      calc(var(--sizing-medium)      / 1.00);
         --padding-horizontal-big:         calc(var(--sizing-big)         / 1.00);
-        --padding-horizontal-large:       calc(var(--sizing-large)       / 1.00);
-        --padding-horizontal-huge:        calc(var(--sizing-huge)        / 1.00);
-        --padding-horizontal-enormous:    calc(var(--sizing-enormous)    / 1.00);
-
-        --padding-horizontal-interactive-wide: calc(2.5 * var(--sizing-interactive));
-        --padding-horizontal-tiny-wide:        calc(2.5 * var(--sizing-tiny));
-        --padding-horizontal-small-wide:       calc(2.5 * var(--sizing-small));
-        --padding-horizontal-regular-wide:     calc(2.5 * var(--sizing-regular));
-        --padding-horizontal-medium-wide:      calc(2.5 * var(--sizing-medium));
-        --padding-horizontal-big-wide:         calc(2.5 * var(--sizing-big));
-        --padding-horizontal-large-wide:       calc(2.5 * var(--sizing-large));
-        --padding-horizontal-huge-wide:        calc(2.5 * var(--sizing-huge));
-        --padding-horizontal-enormous-wide:    calc(2.5 * var(--sizing-enormous));
 
         --padding-interactive: var(--padding-vertical-interactive) var(--padding-horizontal-interactive);
-        --padding-tiny:        var(--padding-vertical-tiny)        var(--padding-horizontal-tiny);
-        --padding-small:       var(--padding-vertical-small)       var(--padding-horizontal-small);
         --padding-regular:     var(--padding-vertical-regular)     var(--padding-horizontal-regular);
         --padding-medium:      var(--padding-vertical-medium)      var(--padding-horizontal-medium);
         --padding-big:         var(--padding-vertical-big)         var(--padding-horizontal-big);
-        --padding-large:       var(--padding-vertical-large)       var(--padding-horizontal-large);
-        --padding-huge:        var(--padding-vertical-huge)        var(--padding-horizontal-huge);
-        --padding-enormous:    var(--padding-vertical-enormous)    var(--padding-horizontal-enormous);
-
-        --padding-interactive-wide: var(--padding-vertical-interactive) var(--padding-horizontal-interactive-wide);
-        --padding-tiny-wide:        var(--padding-vertical-tiny)        var(--padding-horizontal-tiny-wide);
-        --padding-small-wide:       var(--padding-vertical-small)       var(--padding-horizontal-small-wide);
-        --padding-regular-wide:     var(--padding-vertical-regular)     var(--padding-horizontal-regular-wide);
-        --padding-medium-wide:      var(--padding-vertical-medium)      var(--padding-horizontal-medium-wide);
-        --padding-big-wide:         var(--padding-vertical-big)         var(--padding-horizontal-big-wide);
-        --padding-large-wide:       var(--padding-vertical-large)       var(--padding-horizontal-large-wide);
-        --padding-huge-wide:        var(--padding-vertical-huge)        var(--padding-horizontal-huge-wide);
-        --padding-enormous-wide:    var(--padding-vertical-enormous)    var(--padding-horizontal-enormous-wide);
 
         --margin-vertical-interactive: calc(var(--sizing-interactive) / 1.00);
-        --margin-vertical-tiny:        calc(var(--sizing-tiny)        / 1.00);
-        --margin-vertical-small:       calc(var(--sizing-small)       / 1.00);
         --margin-vertical-regular:     calc(var(--sizing-regular)     / 1.00);
         --margin-vertical-medium:      calc(var(--sizing-medium)      / 1.00);
         --margin-vertical-big:         calc(var(--sizing-big)         / 1.00);
-        --margin-vertical-large:       calc(var(--sizing-large)       / 1.00);
-        --margin-vertical-huge:        calc(var(--sizing-huge)        / 1.00);
-        --margin-vertical-enormous:    calc(var(--sizing-enormous)    / 1.00);
         
         --margin-horizontal-interactive: calc(1.75 * var(--sizing-interactive));
-        --margin-horizontal-tiny:        calc(1.75 * var(--sizing-tiny));
-        --margin-horizontal-small:       calc(1.75 * var(--sizing-small));
         --margin-horizontal-regular:     calc(1.75 * var(--sizing-regular));
         --margin-horizontal-medium:      calc(1.75 * var(--sizing-medium));
         --margin-horizontal-big:         calc(1.75 * var(--sizing-big));
-        --margin-horizontal-large:       calc(1.75 * var(--sizing-large));
-        --margin-horizontal-huge:        calc(1.75 * var(--sizing-huge));
-        --margin-horizontal-enormous:    calc(1.75 * var(--sizing-enormous));
 
         --margin-interactive: var(--margin-vertical-interactive) var(--margin-horizontal-interactive);
-        --margin-tiny:        var(--margin-vertical-tiny)        var(--margin-horizontal-tiny);
-        --margin-small:       var(--margin-vertical-small)       var(--margin-horizontal-small);
         --margin-regular:     var(--margin-vertical-regular)     var(--margin-horizontal-regular);
         --margin-medium:      var(--margin-vertical-medium)      var(--margin-horizontal-medium);
         --margin-big:         var(--margin-vertical-big)         var(--margin-horizontal-big);
-        --margin-large:       var(--margin-vertical-large)       var(--margin-horizontal-large);
-        --margin-huge:        var(--margin-vertical-huge)        var(--margin-horizontal-huge);
-        --margin-enormous:    var(--margin-vertical-enormous)    var(--margin-horizontal-enormous);
-        
         
         --interactive-min-width: 200px;
-        --interactive-min-height: calc(var(--line-height) * var(--font-size-regular) + 2 * var(--padding-vertical-regular) + 2px);
+        --interactive-min-height: 50px;
 
-        
         --border-radius-small: 5px;
         --border-radius-regular: 10px;
     }
-
-    :focus-visible { outline: var(--outline-width) solid var(--brand-color) !important; outline-offset: 1px !important; border-radius: var(--border-radius-small); }
-    ::selection { background-color: var(--brand-color); color: var(--text-major-color); fill: var(--text-major-color); }
-    ::target-text { background-color: var(--brand-color); color: var(--text-major-color); fill: var(--text-major-color); }
-
-    ::-webkit-scrollbar { background-color: transparent; width: calc(var(--interactive-min-height) / 4); height: calc(var(--interactive-min-height) / 4); }
-    ::-webkit-scrollbar-thumb
-    {
-        min-height: clamp(15%, var(--interactive-min-height), 50%); min-width: clamp(15%, var(--interactive-min-width), 50%);
-        border: 2px solid transparent; border-radius: var(--border-radius-regular); background-clip: content-box; background-color: var(--scrollbar-color);
-    }
-    ::-webkit-scrollbar-thumb:hover { background-color: var(--brand-color); }
-    ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner { display: none; }
-
-    *, *::before, *::after
-    {
-        padding: 0; margin: 0; box-sizing: border-box; text-indent: 0;
-        scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--scrollbar-color) var(--background-color);
-        transition-duration: 0.25s; transition-timing-function: ease-out; transition-property: var(--transitioned), background-color, color, border-color, text-decoration-color; --transitioned: color;
-    }
-    * { color: var(--text-major-color); font-family: inherit; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; line-height: inherit; }
-    *::before, *::after { display: inline-block; color: var(--text-major-color); }
-    body { font-size: var(--font-size-regular); font-weight: 400; font-family: Inter, sans-serif, system-ui; line-height: var(--line-height); text-align: left; text-size-adjust: 100%; }
-    main { display: block; padding: var(--padding-big); --grid-min-width: 400px; }
-    main > * { --grid-min-width: unset; }
-    section { text-align: justify; }
+    
+    *, *::before, *::after { padding: 0; margin: 0; box-sizing: border-box; text-indent: 0; }
+    * { font-family: inherit; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; line-height: inherit; }
+    body { min-height: 100vh; color: var(--text-major-color); font-size: var(--font-size-regular); font-weight: 400; font-family: Montserrat; line-height: var(--line-height); }
 
     img, picture { flex-shrink: 0; max-inline-size: 100%; display: block; overflow: hidden; }
     img:not([alt]) { outline: 10px solid red; }
-    
-    p { text-indent: 2ch; }
 
     button { appearance: button; }
     div { position: relative; }
@@ -203,232 +89,35 @@
     }
 }
 
-
-
-@layer text
+@layer headings
 {
-    @layer color
+    h1, h2, h3 { color: var(--text-major-color); }
+    h1 { font-size: var(--font-size-big); font-weight: 700; }
+    h2 { font-size: var(--font-size-big); font-weight: 700; }
+}
+
+@layer inputs
+{
+    input:not([type='checkbox']), select, textarea
     {
-        .text_brand { color: var(--text-brand-color); }
-        .text_major { color: var(--text-major-color); }
-        .text_minor { color: var(--text-minor-color); }
-        .text_placeholder { color: var(--text-placeholder-color); }
-        .text_inverse { color: var(--text-inverse-color); }
-        
-        .text_red { color: var(--color-red); }
-        .text_green { color: var(--color-green); }
-        .text_yellow { color: var(--color-yellow); }
-        .text_purple { color: var(--color-purple); }
+        display: block; min-width: var(--interactive-min-width); width: 100%; min-height: var(--interactive-min-height);
+        padding: var(--padding-regular); font-size: var(--font-size-regular); margin: var(--margin-vertical-interactive) 0;
+        background-color: var(--background-color); border: thin solid var(--border-color); border-radius: var(--border-radius-regular);
     }
-    @layer size
+    ::placeholder { color: var(--text-minor-color); opacity: 1; }
+}
+
+@layer labels
+{
+    label { display: block; width: 100%; margin: var(--margin-vertical-interactive) 0; color: var(--text-minor-color); }
+}
+
+@layer buttons
+{
+    button
     {
-        .text_size_tiny     { font-size: var(--font-size-tiny);     }
-        .text_size_small    { font-size: var(--font-size-small);    }
-        .text_size_regular  { font-size: var(--font-size-regular);  }
-        .text_size_medium   { font-size: var(--font-size-medium);   }
-        .text_size_big      { font-size: var(--font-size-big);      }
-        .text_size_large    { font-size: var(--font-size-large);    }
-        .text_size_huge     { font-size: var(--font-size-huge);     }
-        .text_size_enormous { font-size: var(--font-size-enormous); }
+        display: block; min-width: var(--interactive-min-width); width: 100%; min-height: var(--interactive-min-height); padding: var(--padding-regular);
+        background-color: var(--brand-color); border: none; border-radius: var(--border-radius-regular);
+        text-align: center; font-size: var(--font-size-regular); color: var(--text-inverse-color);
     }
-    @layer alignment
-    {
-        .text_align_left { text-align: left; }
-        .text_align_center { text-align: center; }
-        .text_align_justify { text-align: justify; }
-    }
-    @layer other
-    {
-        .text_nowrap { text-overflow: ellipsis; overflow-x: hidden; white-space: nowrap; }
-        .text_nohover { text-decoration: none; cursor: revert; }
-        .text_underline { text-decoration: underline; }
-        .text_nodecoration { text-decoration: none; }
-    } 
-}
-
-@layer sizing
-{
-    .minwidth { width: min-content; }
-    .maxwidth { width: 100%; }
-    
-    .maxheight { height: 100%; }
-    .nominheight { min-height: revert; }
-}
-
-@layer background
-{
-    .background_default { background-color: var(--background-color); }
-    .background_surface { background-color: var(--surface-color);    }
-    .background_brand   { background-color: var(--brand-color);      }
-}
-
-@layer blocks
-{
-    .block { display: block; }
-    .align_right { margin-left: auto; }
-    .centered { margin-left: auto; margin-right: auto; }
-
-    @layer flex
-    {
-        .flex_horizontal { display: flex; gap: var(--sizing-regular); align-items: center; justify-content: center; }
-        .flex_vertical { display: flex; flex-direction: column; gap: var(--sizing-regular); align-items: center; justify-content: center; }
-        .flex_center { display: flex; place-items: center; place-content: center; }
-        .flex_fill { flex-grow: 2; }
-    }
-
-    @layer grids
-    {
-        @layer one_two
-        {
-            .grid_1x2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--sizing-regular); }
-            .grid_1x2:has([hidden]) { grid-template-columns: 1fr; }
-        }
-
-        @layer n_grid
-        {
-            @layer styles
-            {
-                [class *= 'grid_Nx']:not(.grid_Nx1)
-                {
-                    &, & > form
-                    {
-                        display: grid; gap: var(--sizing-regular); grid-auto-rows: max-content;
-                        --grid-target-width: (100% - (var(--grid-columns, 2) - 1) * var(--sizing-regular)) / var(--grid-columns, 2);
-                        grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-target-width), min(var(--grid-min-width, var(--interactive-min-width)), 100%)), 1fr));
-                    }
-                    & > form { gap: inherit; height: 100%; }
-                    & > :is(h1, h2, h3, p, form) { grid-column: 1 / -1; }
-                }
-                .grid_Nx1, .grid_Nx1 > form { display: flex; flex-direction: column; gap: var(--sizing-regular); }
-                .grid_Nx1 > form { height: 100%; }
-            }
-
-            @layer setup
-            {
-                .grid_Nx1 { --grid-columns: 1; }
-                .grid_Nx2 { --grid-columns: 2; }
-                .grid_Nx3 { --grid-columns: 3; }
-            }
-        }
-
-        @layer utilities
-        {
-            .grid_column_span_1 { grid-column: span 1; }
-            .grid_column_span_2 { grid-column: span 2; }
-            .grid_column_span_3 { grid-column: span 3; }
-            .grid_column_span_4 { grid-column: span 4; }
-            .grid_column_span_5 { grid-column: span 5; }
-            .grid_column_span_6 { grid-column: span 6; }
-            .grid_column_span_fill { grid-column: 1 / -1; }
-        
-            .grid_fill_column { grid-row: 1 / -1; }
-            .grid_fill_row { grid-column: 1 / -1; }
-        }
-    }
-}
-
-@layer padding
-{
-    .padding_none { padding: 0; }
-
-    .padding_vertical_none        { padding-top: 0;                                   padding-bottom: 0;                                   }
-    .padding_vertical_interactive { padding-top: var(--padding-vertical-interactive); padding-bottom: var(--padding-vertical-interactive); }
-    .padding_vertical_tiny        { padding-top: var(--padding-vertical-tiny);        padding-bottom: var(--padding-vertical-tiny);        }
-    .padding_vertical_small       { padding-top: var(--padding-vertical-small);       padding-bottom: var(--padding-vertical-small);       }
-    .padding_vertical_regular     { padding-top: var(--padding-vertical-regular);     padding-bottom: var(--padding-vertical-regular);     }
-    .padding_vertical_medium      { padding-top: var(--padding-vertical-medium);      padding-bottom: var(--padding-vertical-medium);      }
-    .padding_vertical_big         { padding-top: var(--padding-vertical-big);         padding-bottom: var(--padding-vertical-big);         }
-    .padding_vertical_large       { padding-top: var(--padding-vertical-large);       padding-bottom: var(--padding-vertical-large);       }
-    .padding_vertical_huge        { padding-top: var(--padding-vertical-huge);        padding-bottom: var(--padding-vertical-huge);        }
-    .padding_vertical_enormous    { padding-top: var(--padding-vertical-enormous);    padding-bottom: var(--padding-vertical-enormous);    }
-    
-    .padding_horizontal_none        { padding-left: 0;                                     padding-right: 0;                                     }
-    .padding_horizontal_interactive { padding-left: var(--padding-horizontal-interactive); padding-right: var(--padding-horizontal-interactive); }
-    .padding_horizontal_tiny        { padding-left: var(--padding-horizontal-tiny);        padding-right: var(--padding-horizontal-tiny);        }
-    .padding_horizontal_small       { padding-left: var(--padding-horizontal-small);       padding-right: var(--padding-horizontal-small);       }
-    .padding_horizontal_regular     { padding-left: var(--padding-horizontal-regular);     padding-right: var(--padding-horizontal-regular);     }
-    .padding_horizontal_medium      { padding-left: var(--padding-horizontal-medium);      padding-right: var(--padding-horizontal-medium);      }
-    .padding_horizontal_big         { padding-left: var(--padding-horizontal-big);         padding-right: var(--padding-horizontal-big);         }
-    .padding_horizontal_large       { padding-left: var(--padding-horizontal-large);       padding-right: var(--padding-horizontal-large);       }
-    .padding_horizontal_huge        { padding-left: var(--padding-horizontal-huge);        padding-right: var(--padding-horizontal-huge);        }
-    .padding_horizontal_enormous    { padding-left: var(--padding-horizontal-enormous);    padding-right: var(--padding-horizontal-enormous);    }
-    
-    .padding_horizontal_interactive_wide { padding-left: var(--padding-horizontal-interactive-wide); padding-right: var(--padding-horizontal-interactive-wide); }
-    .padding_horizontal_tiny_wide        { padding-left: var(--padding-horizontal-tiny-wide);        padding-right: var(--padding-horizontal-tiny-wide);        }
-    .padding_horizontal_small_wide       { padding-left: var(--padding-horizontal-small-wide);       padding-right: var(--padding-horizontal-small-wide);       }
-    .padding_horizontal_regular_wide     { padding-left: var(--padding-horizontal-regular-wide);     padding-right: var(--padding-horizontal-regular-wide);     }
-    .padding_horizontal_medium_wide      { padding-left: var(--padding-horizontal-medium-wide);      padding-right: var(--padding-horizontal-medium-wide);      }
-    .padding_horizontal_big_wide         { padding-left: var(--padding-horizontal-big-wide);         padding-right: var(--padding-horizontal-big-wide);         }
-    .padding_horizontal_large_wide       { padding-left: var(--padding-horizontal-large-wide);       padding-right: var(--padding-horizontal-large-wide);       }
-    .padding_horizontal_huge_wide        { padding-left: var(--padding-horizontal-huge-wide);        padding-right: var(--padding-horizontal-huge-wide);        }
-    .padding_horizontal_enormous_wide    { padding-left: var(--padding-horizontal-enormous-wide);    padding-right: var(--padding-horizontal-enormous-wide);    }
-
-    .padding_none        { padding: 0;                          }
-    .padding_interactive { padding: var(--padding-interactive); }
-    .padding_tiny        { padding: var(--padding-tiny);        }
-    .padding_small       { padding: var(--padding-small);       }
-    .padding_regular     { padding: var(--padding-regular);     }
-    .padding_medium      { padding: var(--padding-medium);      }
-    .padding_big         { padding: var(--padding-big);         }
-    .padding_large       { padding: var(--padding-large);       }
-    .padding_huge        { padding: var(--padding-huge);        }
-    .padding_enormous    { padding: var(--padding-enormous);    }
-    
-    .padding_interactive_wide { padding: var(--padding-interactive-wide); }
-    .padding_tiny_wide        { padding: var(--padding-tiny-wide);        }
-    .padding_small_wide       { padding: var(--padding-small-wide);       }
-    .padding_regular_wide     { padding: var(--padding-regular-wide);     }
-    .padding_medium_wide      { padding: var(--padding-medium-wide);      }
-    .padding_big_wide         { padding: var(--padding-big-wide);         }
-    .padding_large_wide       { padding: var(--padding-large-wide);       }
-    .padding_huge_wide        { padding: var(--padding-huge-wide);        }
-    .padding_enormous_wide    { padding: var(--padding-enormous-wide);    }
-}
-
-@layer margin
-{
-    .margin_vertical_none        { margin-top: 0;                                  margin-bottom: 0;                                  }
-    .margin_vertical_interactive { margin-top: var(--margin-vertical-interactive); margin-bottom: var(--margin-vertical-interactive); }
-    .margin_vertical_tiny        { margin-top: var(--margin-vertical-tiny);        margin-bottom: var(--margin-vertical-tiny);        }
-    .margin_vertical_small       { margin-top: var(--margin-vertical-small);       margin-bottom: var(--margin-vertical-small);       }
-    .margin_vertical_regular     { margin-top: var(--margin-vertical-regular);     margin-bottom: var(--margin-vertical-regular);     }
-    .margin_vertical_medium      { margin-top: var(--margin-vertical-medium);      margin-bottom: var(--margin-vertical-medium);      }
-    .margin_vertical_big         { margin-top: var(--margin-vertical-big);         margin-bottom: var(--margin-vertical-big);         }
-    .margin_vertical_large       { margin-top: var(--margin-vertical-large);       margin-bottom: var(--margin-vertical-large);       }
-    .margin_vertical_huge        { margin-top: var(--margin-vertical-huge);        margin-bottom: var(--margin-vertical-huge);        }
-    .margin_vertical_enormous    { margin-top: var(--margin-vertical-enormous);    margin-bottom: var(--margin-vertical-enormous);    }
-    
-    .margin_horizontal_none        { margin-left: 0;                                    margin-right: 0;                                    }
-    .margin_horizontal_interactive { margin-left: var(--margin-horizontal-interactive); margin-right: var(--margin-horizontal-interactive); }
-    .margin_horizontal_tiny        { margin-left: var(--margin-horizontal-tiny);        margin-right: var(--margin-horizontal-tiny);        }
-    .margin_horizontal_small       { margin-left: var(--margin-horizontal-small);       margin-right: var(--margin-horizontal-small);       }
-    .margin_horizontal_regular     { margin-left: var(--margin-horizontal-regular);     margin-right: var(--margin-horizontal-regular);     }
-    .margin_horizontal_medium      { margin-left: var(--margin-horizontal-medium);      margin-right: var(--margin-horizontal-medium);      }
-    .margin_horizontal_big         { margin-left: var(--margin-horizontal-big);         margin-right: var(--margin-horizontal-big);         }
-    .margin_horizontal_large       { margin-left: var(--margin-horizontal-large);       margin-right: var(--margin-horizontal-large);       }
-    .margin_horizontal_huge        { margin-left: var(--margin-horizontal-huge);        margin-right: var(--margin-horizontal-huge);        }
-    .margin_horizontal_enormous    { margin-left: var(--margin-horizontal-enormous);    margin-right: var(--margin-horizontal-enormous);    }
-    
-    .margin_none        { margin: 0;                         }
-    .margin_interactive { margin: var(--margin-interactive); }
-    .margin_tiny        { margin: var(--margin-tiny);        }
-    .margin_small       { margin: var(--margin-small);       }
-    .margin_regular     { margin: var(--margin-regular);     }
-    .margin_medium      { margin: var(--margin-medium);      }
-    .margin_big         { margin: var(--margin-big);         }
-    .margin_large       { margin: var(--margin-large);       }
-    .margin_huge        { margin: var(--margin-huge);        }
-    .margin_enormous    { margin: var(--margin-enormous);    }
-}
-
-@layer border_radius
-{
-    .border_radius_small { border-radius: var(--border-radius-small); }
-    .border_radius_regular { border-radius: var(--border-radius-regular); }
-    .border_radius_rounded { border-radius: 50%; }
-}
-
-@layer border
-{
-    .border_thin_brand { border: thin solid var(--brand-color); }
 }

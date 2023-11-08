@@ -90,6 +90,7 @@ async function register(app, options)
         includeViewExtension: false,
         defaultContext:
         {
+            config: config
         }
     });
 

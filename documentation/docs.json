@@ -42,6 +42,18 @@
                 "minimum": 0,
                 "maximum": 32767,
                 "title": "usmallint"
+            },
+            "def-5": {
+                "type": "string",
+                "minLength": 5,
+                "pattern": "[A-Z]",
+                "title": "login"
+            },
+            "def-6": {
+                "type": "string",
+                "minLength": 5,
+                "pattern": "[\\W0-9]",
+                "title": "password"
             }
         }
     },
@@ -124,17 +136,34 @@
             }
         },
         "/login": {
-            "get": {
-                "parameters": [
-                    {
-                        "schema": {
-                            "$ref": "#/components/schemas/def-0"
-                        },
-                        "in": "query",
-                        "name": "state",
-                        "required": true
-                    }
-                ],
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "login",
+                                    "password",
+                                    "authentication"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "login": {
+                                        "$ref": "#/components/schemas/def-5"
+                                    },
+                                    "password": {
+                                        "$ref": "#/components/schemas/def-6"
+                                    },
+                                    "authentication": {
+                                        "$ref": "#/components/schemas/def-0"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Default Response"

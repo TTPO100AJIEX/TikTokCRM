@@ -1,20 +1,28 @@
 async function register(app, options)
 {
+    /*app.get("/validate", { schema: LOGIN_SCHEMA, config: { authentication: true, access: "public" } }, async (req, res) =>
+    {
+        await res.createSessionID(req.body.login, req.body.password);
+        return res.status(303).redirect((await req.authenticate()).page);
+    });*/
+
     const LOGIN_SCHEMA = {
-        query:
+        body:
         {
             type: "object",
-            required: [ "state" ],
+            required: [ "login", "password", "authentication" ],
             additionalProperties: false,
             properties:
             {
-                "state": { $ref: "authentication" }
+                "login": { $ref: "login" },
+                "password": { $ref: "password" },
+                "authentication": { $ref: "authentication" }
             }
         }
     };
-    app.get("/login", { schema: LOGIN_SCHEMA, config: { authentication: true, access: "public" } }, async (req, res) =>
+    app.post("/login", { schema: LOGIN_SCHEMA, config: { authentication: true, access: "public" } }, async (req, res) =>
     {
-        await res.createSessionID();
+        await res.createSessionID(req.body.login, req.body.password);
         return res.status(303).redirect((await req.authenticate()).page);
     });
 

@@ -3,24 +3,20 @@
     <head>
         <meta name="robots" content="noindex">
 
-        <title><%=title%> - DOLIX</title>
-        <meta name="description" content="<%=res.localization.website.errors[statusCode].page_description%>">
-
         <style nonce="<%=cspNonce.style%>">
             body { display: flex; place-items: center; place-content: center; overflow: auto; text-align: center; }
             main { max-width: min(70ch, 90vw); display: flex; flex-direction: column; align-items: center; }
-            div { height: min-content; max-height: 100%; }
             p { text-indent: unset; text-align: center; }
         </style>
-        
-        <%- include("layouts/general/components/head.ejs", locals) %>
+
+        <%- include("general/head.ejs") %>
     </head>
     <body>
         <div>
             <main tabindex="-1">
-                <h1 class="text_size_enormous"><%=title%></h1>
-                <p> <%- include("utils/format.ejs", { text: message, types: [ "breakline" ] }); %> </p>
-                <a href="/" class="primary padding_regular_wide margin_vertical_tiny"><%=res.localization.website.errors.to_main_button%></a>
+                <h1><%=title%></h1>
+                <p><%=message%></p>
+                <a href="/">На главную</a>
             </main>
         </div>
     </body>

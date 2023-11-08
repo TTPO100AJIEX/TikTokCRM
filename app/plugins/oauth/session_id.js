@@ -1,6 +1,8 @@
 import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 import Interval from "common/utils/Interval.js";
 import { DatabaseCache } from 'common/databases/Redis/Redis.js';
+import { Database } from 'common/databases/PostgreSQL/PostgreSQL.js';
 import config from "common/configs/config.json" assert { type: "json" };
 
 const SessionIdCookieName = "__Secure-authorization";
@@ -15,14 +17,22 @@ const SessionIdCookieOptions = {
 
 async function register(app, options)
 {
-    app.decorateReply("createSessionID", async function()
+    app.decorateReply("createSessionID", async function(login, password)
     {
-        const data = { };
-        const session_id = crypto.randomBytes(32).toString('base64');
-        const interval = new Interval(config.website.authorization_expiration);
-        await DatabaseCache.setExpire(`session_id-${session_id}`, JSON.stringify(data), interval);
-        this.setCookie(SessionIdCookieName, session_id, SessionIdCookieOptions);
-        return session_id;
+        const query_string = `SELECT id, login, password, access, responsibility FROM employees WHERE login = $1`;
+        const users = await Database.execute(query_string, [ login ]);
+        if (users.length == 0) throw { statusCode: 401, message: "Пользователя не найден!" };
+        for (const user of users)
+        {
+            if (!(await bcrypt.compare(password, user.password))) continue;
+            const data = user; delete data.password;
+            const session_id = crypto.randomBytes(32).toString('base64');
+            const interval = new Interval(config.website.authorization_expiration);
+            await DatabaseCache.setExpire(`session_id-${session_id}`, JSON.stringify(data), interval);
+            this.setCookie(SessionIdCookieName, session_id, SessionIdCookieOptions);
+            return session_id;
+        }
+        throw { statusCode: 401, message: "Пользователя не найден!" };
     });
 
 
@@ -52,7 +62,8 @@ async function register(app, options)
         let data = this.session_id_data;
         if (!data.expiration || new Date(data.expiration) <= new Date())
         {
-            data = { };
+            const query_string = `SELECT id, login, password, access, responsibility FROM employees WHERE id = $1`;
+            const data = await Database.execute(query_string, [ login ], { one_response: true });
             const lifetime = new Interval(config.website.user_data_expiration);
             data.expiration = Date.now() + lifetime.toMilliseconds();
         }

@@ -5,6 +5,11 @@
         "name": "TikTokCRM"
     },
 
+    "bcrypt":
+    {
+        "saltRounds": 11
+    },
+
     "postgreSQL":
     {
         "host": "localhost",

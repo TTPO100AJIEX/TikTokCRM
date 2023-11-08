@@ -1,0 +1,5 @@
+:root { --interactive-min-width: 440px; }
+body { display: flex; place-items: center; place-content: center; }
+main { background: var(--surface-color); padding: var(--margin-big); width: min-content; border-radius: var(--border-radius-regular); }
+button { margin-top: var(--margin-vertical-regular); }
+h1 { margin-bottom: var(--margin-vertical-regular); }

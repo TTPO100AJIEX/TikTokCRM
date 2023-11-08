@@ -1,0 +1,6 @@
+{
+    "$id": "login",
+    "type": "string",
+    "minLength": 5,
+    "pattern": "[A-Z]"
+}
