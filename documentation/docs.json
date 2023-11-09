@@ -135,6 +135,49 @@
                 }
             }
         },
+        "/validate": {
+            "get": {
+                "parameters": [
+                    {
+                        "schema": {
+                            "$ref": "#/components/schemas/def-5"
+                        },
+                        "in": "query",
+                        "name": "login",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "$ref": "#/components/schemas/def-6"
+                        },
+                        "in": "query",
+                        "name": "password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "valid"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "valid": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/login": {
             "post": {
                 "requestBody": {

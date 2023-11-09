@@ -63,7 +63,7 @@ async function register(app, options)
         if (!data.expiration || new Date(data.expiration) <= new Date())
         {
             const query_string = `SELECT id, login, password, access, responsibility FROM employees WHERE id = $1`;
-            const data = await Database.execute(query_string, [ login ], { one_response: true });
+            data = await Database.execute(query_string, [ data.id ], { one_response: true });
             const lifetime = new Interval(config.website.user_data_expiration);
             data.expiration = Date.now() + lifetime.toMilliseconds();
         }

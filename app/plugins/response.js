@@ -194,6 +194,7 @@ async function register(app, options)
         if (config.stage == "testing") console.error(error);
 
         const error_response = parseError(error);
+        if (req.routeOptions.config.api) return res.status(error_response.statusCode).send(error_response);
         return res.status(error_response.statusCode).render("error.ejs", { ...error_response, req, res });
     });
     app.setNotFoundHandler({ preHandler: app.rateLimit({ max: 25, timeWindow: 60000, ban: 40 }) }, (req, res) => { throw 404; });

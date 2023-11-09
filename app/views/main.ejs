@@ -2,11 +2,12 @@
 <html lang='ru'>
     <head>
         <link rel="stylesheet" href="/static/css/main.css" nonce="<%=cspNonce.style%>">
+        <script src="/static/js/main.js" nonce="<%=cspNonce.script%>" type="module"></script>
         <%- include("general/head.ejs") %>
     </head>
     <body>
         <main tabindex="-1">
-            <form method="POST" action="/login">
+            <form id="login_form" method="POST" action="/login">
                 <h1>Авторизация</h1>
                 <label>
                     Логин:
@@ -14,7 +15,7 @@
                 </label>
                 <label>
                     Пароль:
-                    <input type="password" name="password" placeholder="Введите пароль" minlength="5" pattern=".*[\\W0-9].*" required>
+                    <input type="password" name="password" placeholder="Введите пароль" minlength="5" pattern=".*[\W0-9].*" required>
                 </label>
                 <button>Войти в аккаунт</button>
                 <input type="hidden" name="authentication" value="<%=req.authentication_code%>">

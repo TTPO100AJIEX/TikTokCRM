@@ -11,6 +11,8 @@
         --text-minor-color: hsl(219, 12%, 56%);
         --text-placeholder-color: hsl(219, 12%, 56%);
         --text-inverse-color: hsl(240, 21%, 10%);
+
+        --color-red: red;
     }
 
     :root, ::backdrop
