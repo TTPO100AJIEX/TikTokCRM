@@ -1,0 +1,7 @@
+<nav>
+    <span>Меню управления</span>
+    <a class="employees <%=req.url == "/employees" ? "opened": ""%>" href="/employees">Сотрудники</a>
+    <a class="streamers <%=req.url == "/streamers" ? "opened": ""%></a>" href="/streamers">Данные стримеров</a>
+    <a class="statistics <%=req.url == "/statistics" ? "opened": ""%></a>" href="/statistics">Статистика стримеров</a>
+    <a class="accounting <%=req.url == "/accounting" ? "opened": ""%></a>" href="/accounting">Учет данных</a>
+</nav>

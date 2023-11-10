@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang='ru'>
+    <head>
+        <%- include("./head.ejs") %>
+        
+        <link rel="stylesheet" href="/static/css/general/layout.css" nonce="<%=res.cspNonce.style%>">
+        <link rel="stylesheet" href="/static/css/general/header.css" nonce="<%=res.cspNonce.style%>">
+        <link rel="stylesheet" href="/static/css/general/nav.css" nonce="<%=res.cspNonce.style%>">
+        
+        <%- include(`templates/${template}/head.ejs`) %>
+    </head>
+    <body>
+        <%- include("./header.ejs") %>
+        <%- include("./nav.ejs") %>
+        <%- include(`templates/${template}/body.ejs`) %>
+    </body>
+</html>

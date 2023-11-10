@@ -135,6 +135,15 @@
                 }
             }
         },
+        "/employees": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
         "/validate": {
             "get": {
                 "parameters": [

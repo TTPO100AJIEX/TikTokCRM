@@ -1,0 +1,19 @@
+body > nav { background: var(--surface-color); padding: var(--padding-big); border-top: 2px solid var(--border-color); }
+body > nav > span { display: block; margin-top: var(--margin-vertical-interactive); color: var(--text-minor-color); }
+body > nav > a
+{
+    display: flex; align-items: center; gap: var(--sizing-regular);
+    text-decoration: none; color: var(--text-major-color); border-radius: var(--border-radius-regular);
+    padding: var(--padding-regular); margin: var(--margin-vertical-interactive) 0; min-height: var(--interactive-min-height);
+}
+body > nav > a::before
+{
+    content: ''; height: 1.2em; flex-shrink: 0; aspect-ratio: 1/1; background-color: currentColor;
+    -webkit-mask-size: contain; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat;
+    mask-size: contain; mask-position: center; mask-repeat: no-repeat;
+}
+body > nav > a.employees::before { -webkit-mask-image: url("/static/images/nav/employees.svg"); mask-image: url("/static/images/nav/employees.svg"); }
+body > nav > a.streamers::before { -webkit-mask-image: url("/static/images/nav/streamers.svg"); mask-image: url("/static/images/nav/streamers.svg"); }
+body > nav > a.statistics::before { -webkit-mask-image: url("/static/images/nav/statistics.svg"); mask-image: url("/static/images/nav/statistics.svg"); }
+body > nav > a.accounting::before { -webkit-mask-image: url("/static/images/nav/accounting.svg"); mask-image: url("/static/images/nav/accounting.svg"); }
+body > nav > a.opened { color: var(--brand-color); background: hsl(from var(--brand-color) h s l / 0.15); }

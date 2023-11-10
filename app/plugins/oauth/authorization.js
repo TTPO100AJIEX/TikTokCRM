@@ -12,12 +12,37 @@ async function register(app, options)
     {
         return this.hasPublicAccess() && this.authorization;
     });
+    app.decorateRequest("hasAdminAccess", function()
+    {
+        return this.hasAuthorizationAccess() && this.authorization.access == "ADMIN";
+    });
+    app.decorateRequest("hasCEOAccess", function()
+    {
+        return this.hasAuthorizationAccess() && (this.hasAdminAccess() || this.authorization.access == "CEO");
+    });
+    app.decorateRequest("hasCuratorAccess", function()
+    {
+        return this.hasAuthorizationAccess() && (this.hasAdminAccess() || this.authorization.access == "CURATOR");
+    });
+    app.decorateRequest("hasStreamerUniliveAccess", function()
+    {
+        return this.hasAuthorizationAccess() && (this.hasAdminAccess() || this.authorization.access == "STREAMER_UNILIVE");
+    });
+    app.decorateRequest("hasStreamerBackstageAccess", function()
+    {
+        return this.hasAuthorizationAccess() && (this.hasAdminAccess() || this.authorization.access == "STREAMER_BACKSTAGE");
+    });
     app.decorateRequest("hasAccess", function(level)
     {
         switch(level)
         {
             case 'public': return this.hasPublicAccess();
             case 'authorization': return this.hasAuthorizationAccess();
+            case 'admin': return this.hasAdminAccess();
+            case 'ceo': return this.hasCEOAccess();
+            case 'curator': return this.hasCuratorAccess();
+            case 'streamer_unilive': return this.hasStreamerUniliveAccess();
+            case 'streamer_backstage': return this.hasStreamerBackstageAccess();
             default: return false;
         }
     });

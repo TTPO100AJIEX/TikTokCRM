@@ -122,4 +122,9 @@
         background-color: var(--brand-color); border: none; border-radius: var(--border-radius-regular);
         text-align: center; font-size: var(--font-size-regular); color: var(--text-inverse-color);
     }
+
+    a
+    {
+        color: var(--brand-color);
+    }
 }

@@ -1,0 +1,3 @@
+body > header { background: var(--surface-color); display: flex; justify-content: space-between; padding: var(--padding-big); }
+body > header > div { display: grid; grid-template-columns: repeat(2, auto); grid-template-rows: repeat(2, auto); column-gap: var(--sizing-regular); align-items: center; }
+body > header > div > img { grid-row: 1 / -1; }
