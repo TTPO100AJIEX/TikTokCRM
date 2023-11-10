@@ -72,7 +72,11 @@
     
     *, *::before, *::after { padding: 0; margin: 0; box-sizing: border-box; text-indent: 0; }
     * { font-family: inherit; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; line-height: inherit; }
-    body { min-height: 100vh; color: var(--text-major-color); font-size: var(--font-size-regular); font-weight: 400; font-family: Montserrat; line-height: var(--line-height); }
+    body
+    {
+        min-height: 100vh; background: var(--background-color);
+        color: var(--text-major-color); font-size: var(--font-size-regular); font-weight: 400; font-family: Montserrat; line-height: var(--line-height);
+    }
 
     img, picture { flex-shrink: 0; max-inline-size: 100%; display: block; overflow: hidden; }
     img:not([alt]) { outline: 10px solid red; }
@@ -102,9 +106,9 @@
 {
     input:not([type='checkbox']), select, textarea
     {
-        display: block; min-width: var(--interactive-min-width); width: 100%; min-height: var(--interactive-min-height);
-        padding: var(--padding-regular); font-size: var(--font-size-regular); margin: var(--margin-vertical-interactive) 0;
+        display: block; min-width: var(--interactive-min-width); width: 100%; min-height: var(--interactive-min-height); padding: var(--padding-regular);
         background-color: var(--background-color); border: thin solid var(--border-color); border-radius: var(--border-radius-regular);
+        color: var(--text-major-color); font-size: var(--font-size-regular); margin: var(--margin-vertical-interactive) 0;
     }
     ::placeholder { color: var(--text-minor-color); opacity: 1; }
 }
