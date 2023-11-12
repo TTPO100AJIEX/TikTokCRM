@@ -1,3 +1,147 @@
+<%
+function translateAccess(access)
+{
+    switch (access)
+    {
+        case 'ADMIN': return "Администратор системы";
+        case 'CEO': return "СЕО";
+        case 'CURATOR': return "Куратор";
+        case 'STREAMER_UNILIVE': return "Стример Unilive";
+        case 'STREAMER_BACKSTAGE': return "Стример Backstage";
+    }
+}
+function translateResponsibility(responsibility)
+{
+    switch (responsibility)
+    {
+        case 'GROUP_1': return "1 группа";
+        case 'GROUP_2': return "2 группа";
+        case 'GROUP_3': return "3 группа";
+        default: return "Отсутствует";
+    }
+}
+function translateDate(date)
+{
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const hour = date.getHours().toString().padStart(2, "0");
+    const minute = date.getMinutes().toString().padStart(2, "0");
+    return `${day}.${month}.${date.getFullYear()} ${hour}:${minute}`;
+}
+%>
+
 <main>
-    
+    <div>
+        <button data-modal="add_employee" data-modal_action="show">Добавить сотрудника</button>
+        <h1>Добавление сотрудников</h1>
+        <p>Сотрудники</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Сотрудники</th>
+                <th>Права доступа</th>
+                <th>Группа</th>
+                <th>Дата изменения</th>
+                <th>Дата добавления</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const employee of employees)
+            { %>
+                <tr data-value="<%=employee.id%>">
+                    <td>
+                        <span data-value="<%=employee.login%>"><%=employee.login%></span><br>
+                        <span>Пароль: ********</span>
+                    </td>
+                    <td data-value="<%=employee.access%>"><%=translateAccess(employee.access)%></td>
+                    <td data-value="<%=employee.responsibility%>"><%=translateResponsibility(employee.responsibility)%></td>
+                    <td data-value="<%=employee.updated.toISOString()%>"><%=translateDate(employee.updated)%></td>
+                    <td data-value="<%=employee.created.toISOString()%>"><%=translateDate(employee.created)%></td>
+                    <td><button data-modal="edit_employee" data-modal_action="show">Edit</button></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <dialog id="add_employee">
+        <h2>Добавление сотрудников</h2>
+        <form method="POST" action="/employees">
+            <label>
+                Логин
+                <input type="text" name="login" placeholder="Логин сотрудника" minlength="5" pattern=".*[A-Z].*" required>
+            </label>
+            <label>
+                Пароль сотрудника
+                <input type="password" name="password" placeholder="Пароль сотрудника" minlength="5" pattern=".*[\W0-9].*" required>
+            </label>
+            <label>
+                Уровень доступа
+                <select name="access" required>
+                    <option disabled selected>Выберите права сотрудника</option>
+                    <option value="ADMIN">Администратор системы</option>
+                    <option value="CEO">СЕО</option>
+                    <option value="CURATOR">Куратор</option>
+                    <option value="STREAMER_UNILIVE">Стример Unilive</option>
+                    <option value="STREAMER_BACKSTAGE">Стример Backstage</option>
+                </select>
+            </label>
+            <label>
+                Выберите группу ответственности
+                <select name="responsibility">
+                    <option value selected>Выберите группу ответственности</option>
+                    <option value="GROUP_1">1 группа</option>
+                    <option value="GROUP_2">2 группа</option>
+                    <option value="GROUP_3">3 группа</option>
+                </select>
+            </label>
+            <div>
+                <button type="button" class="secondary" data-modal="add_employee" data-modal_action="close">Закрыть</button>
+                <button>Добавить</button>
+            </div>
+            <input type="hidden" name="authentication" value="<%=req.authentication_code%>">
+        </form>
+    </dialog>
+
+    <dialog id="edit_employee">
+        <h2>Редактирование сотрудников</h2>
+        <form method="POST" action="/employees">
+            <label>
+                Логин
+                <input type="text" name="login" placeholder="Логин сотрудника" minlength="5" pattern=".*[A-Z].*" required>
+            </label>
+            <label>
+                Пароль сотрудника
+                <input type="password" name="password" placeholder="Пароль сотрудника" minlength="5" pattern=".*[\W0-9].*" required>
+            </label>
+            <label>
+                Уровень доступа
+                <select name="access" required>
+                    <option disabled selected>Выберите права сотрудника</option>
+                    <option value="ADMIN">Администратор системы</option>
+                    <option value="CEO">СЕО</option>
+                    <option value="CURATOR">Куратор</option>
+                    <option value="STREAMER_UNILIVE">Стример Unilive</option>
+                    <option value="STREAMER_BACKSTAGE">Стример Backstage</option>
+                </select>
+            </label>
+            <label>
+                Выберите группу ответственности
+                <select name="responsibility">
+                    <option value selected>Выберите группу ответственности</option>
+                    <option value="GROUP_1">1 группа</option>
+                    <option value="GROUP_2">2 группа</option>
+                    <option value="GROUP_3">3 группа</option>
+                </select>
+            </label>
+            <div>
+                <button type="button" class="secondary" data-modal="edit_employee" data-modal_action="close">Закрыть</button>
+                <button>Добавить</button>
+            </div>
+            <input type="hidden" name="authentication" value="<%=req.authentication_code%>">
+            <input type="hidden" name="id">
+        </form>
+    </dialog>
 </main>

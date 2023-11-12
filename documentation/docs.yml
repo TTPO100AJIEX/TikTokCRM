@@ -95,6 +95,46 @@ paths:
       responses:
         "200":
           description: Default Response
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - login
+                - password
+                - access
+                - authentication
+              additionalProperties: false
+              properties:
+                id:
+                  $ref: "#/components/schemas/def-3"
+                login:
+                  $ref: "#/components/schemas/def-5"
+                password:
+                  $ref: "#/components/schemas/def-6"
+                access:
+                  type: string
+                  enum:
+                    - ADMIN
+                    - CEO
+                    - CURATOR
+                    - STREAMER_UNILIVE
+                    - STREAMER_BACKSTAGE
+                responsibility:
+                  type: string
+                  enum:
+                    - ""
+                    - GROUP_1
+                    - GROUP_2
+                    - GROUP_3
+                authentication:
+                  $ref: "#/components/schemas/def-0"
+        required: true
+      responses:
+        "200":
+          description: Default Response
   /validate:
     get:
       parameters:

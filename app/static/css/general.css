@@ -33,30 +33,30 @@
         --sizing-medium:      var(--font-size-medium);
         --sizing-big:         var(--font-size-big);
 
-        --padding-vertical-interactive: calc(var(--sizing-interactive) / 1.75);
-        --padding-vertical-regular:     calc(var(--sizing-regular)     / 1.75);
-        --padding-vertical-medium:      calc(var(--sizing-medium)      / 1.75);
-        --padding-vertical-big:         calc(var(--sizing-big)         / 1.75);
+        --padding-vertical-interactive: calc(var(--sizing-interactive) / 1.25);
+        --padding-vertical-regular:     calc(var(--sizing-regular)     / 1.25);
+        --padding-vertical-medium:      calc(var(--sizing-medium)      / 1.25);
+        --padding-vertical-big:         calc(var(--sizing-big)         / 1.25);
 
-        --padding-horizontal-interactive: calc(var(--sizing-interactive) / 1.00);
-        --padding-horizontal-regular:     calc(var(--sizing-regular)     / 1.00);
-        --padding-horizontal-medium:      calc(var(--sizing-medium)      / 1.00);
-        --padding-horizontal-big:         calc(var(--sizing-big)         / 1.00);
+        --padding-horizontal-interactive: calc(var(--sizing-interactive) / 0.75);
+        --padding-horizontal-regular:     calc(var(--sizing-regular)     / 0.75);
+        --padding-horizontal-medium:      calc(var(--sizing-medium)      / 0.75);
+        --padding-horizontal-big:         calc(var(--sizing-big)         / 0.75);
 
         --padding-interactive: var(--padding-vertical-interactive) var(--padding-horizontal-interactive);
         --padding-regular:     var(--padding-vertical-regular)     var(--padding-horizontal-regular);
         --padding-medium:      var(--padding-vertical-medium)      var(--padding-horizontal-medium);
         --padding-big:         var(--padding-vertical-big)         var(--padding-horizontal-big);
 
-        --margin-vertical-interactive: calc(var(--sizing-interactive) / 1.00);
-        --margin-vertical-regular:     calc(var(--sizing-regular)     / 1.00);
-        --margin-vertical-medium:      calc(var(--sizing-medium)      / 1.00);
-        --margin-vertical-big:         calc(var(--sizing-big)         / 1.00);
+        --margin-vertical-interactive: calc(var(--sizing-interactive) / 0.75);
+        --margin-vertical-regular:     calc(var(--sizing-regular)     / 0.75);
+        --margin-vertical-medium:      calc(var(--sizing-medium)      / 0.75);
+        --margin-vertical-big:         calc(var(--sizing-big)         / 0.75);
         
-        --margin-horizontal-interactive: calc(1.75 * var(--sizing-interactive));
-        --margin-horizontal-regular:     calc(1.75 * var(--sizing-regular));
-        --margin-horizontal-medium:      calc(1.75 * var(--sizing-medium));
-        --margin-horizontal-big:         calc(1.75 * var(--sizing-big));
+        --margin-horizontal-interactive: calc(2.00 * var(--sizing-interactive));
+        --margin-horizontal-regular:     calc(2.00 * var(--sizing-regular));
+        --margin-horizontal-medium:      calc(2.00 * var(--sizing-medium));
+        --margin-horizontal-big:         calc(2.00 * var(--sizing-big));
 
         --margin-interactive: var(--margin-vertical-interactive) var(--margin-horizontal-interactive);
         --margin-regular:     var(--margin-vertical-regular)     var(--margin-horizontal-regular);
@@ -111,6 +111,8 @@
         color: var(--text-major-color); font-size: var(--font-size-regular); margin: var(--margin-vertical-interactive) 0;
     }
     ::placeholder { color: var(--text-minor-color); opacity: 1; }
+    
+    select { border: none; border-right: var(--padding-horizontal-regular) solid transparent !important; box-shadow: 0 0 0 1px var(--border-color); }
 }
 
 @layer labels
@@ -126,9 +128,27 @@
         background-color: var(--brand-color); border: none; border-radius: var(--border-radius-regular);
         text-align: center; font-size: var(--font-size-regular); color: var(--text-inverse-color);
     }
+    button.secondary { background: var(--surface-color); color: var(--brand-color); }
+    a { color: var(--brand-color); }
+}
 
-    a
+@layer table
+{
+    table { border-collapse: collapse; width: 100%; text-align: left; }
+    tr { border-top: thin solid var(--border-color); }
+    tr > :first-child { padding-left: var(--padding-horizontal-big); }
+    tr > :last-child { padding-right: var(--padding-horizontal-big); }
+    th { color: var(--text-minor-color); padding: var(--padding-regular); }
+    td { padding: var(--padding-regular); }
+}
+
+@layer dialog
+{
+    dialog
     {
-        color: var(--brand-color);
+        background: var(--background-color); border: none; border-radius: var(--border-radius-regular);
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; padding: var(--padding-big);
     }
+
+    dialog div:last-of-type { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sizing-regular); margin-top: var(--margin-vertical-regular); }
 }
