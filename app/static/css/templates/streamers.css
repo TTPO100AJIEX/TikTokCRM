@@ -5,6 +5,25 @@ main > div > div > input[type='search'] { margin-left: auto; width: calc(2 * var
 
 td:first-of-type { display: grid; grid-template-columns: 50px auto; grid-template-rows: 1fr 1fr; column-gap: var(--sizing-regular); align-items: center; }
 td:first-of-type > img { grid-row: span 2; border-radius: var(--border-radius-regular); }
-:is([data-key='status'][data-value='PREPARATION'], select[name='status'] option[value='PREPARATION']) { color: var(--color-yellow); }
-[data-key='status'][data-value='CONTRACT'] { color: var(--color-brand); }
-[data-key='status'][data-value='ACTIVE'] { color: var(--color-green); }
+
+
+[data-key='status'][data-value='PREPARATION'],
+select[name='status'] option[value='PREPARATION'],
+select[name='status']:has(option[value='PREPARATION']:checked)
+{
+    color: var(--color-yellow);
+}
+
+[data-key='status'][data-value='CONTRACT'],
+select[name='status'] option[value='CONTRACT'],
+select[name='status']:has(option[value='CONTRACT']:checked)
+{
+    color: var(--brand-color);
+}
+
+[data-key='status'][data-value='ACTIVE'],
+select[name='status'] option[value='ACTIVE'],
+select[name='status']:has(option[value='ACTIVE']:checked)
+{
+    color: var(--color-green);
+}
