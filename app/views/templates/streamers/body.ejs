@@ -1,0 +1,207 @@
+<%
+function translateStatus(status)
+{
+    switch (status)
+    {
+        case 'CONTRACT': return "Подписан контракт";
+        case 'PREPARATION': return "Подготовка";
+        case 'ACTIVE': return "Активный стример";
+        case 'PAUSED': return "На паузе";
+        case 'FIRED': return "Уволен";
+    }
+}
+function translateCategory(category)
+{
+    switch (category)
+    {
+        case 'OUR': return "Наш стример";
+        case 'BACKSTAGE': return "Бекстейдж стример";
+        case 'OUTSIDE': return "Сторонний стример";
+        case 'ETC': return "Тд";
+    }
+}
+function translateDate(date)
+{
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const hour = date.getHours().toString().padStart(2, "0");
+    const minute = date.getMinutes().toString().padStart(2, "0");
+    return `${day}.${month}.${date.getFullYear()} ${hour}:${minute}`;
+}
+function translateGroup(group)
+{
+    switch (group)
+    {
+        case 'GROUP_1': return "Группа 1";
+        case 'GROUP_2': return "Группа 2";
+        case 'GROUP_3': return "Группа 3";
+    }
+}
+%>
+
+<main>
+    <div>
+        <button data-modal="add_streamer" data-modal_action="show">Добавить стримера</button>
+        <h1>Данные стримеров агенства</h1>
+        <p>Сотрудники - стримеры</p>
+        <div>
+            <input type="datetime-local" name="date_from">
+            <input type="datetime-local" name="date_from">
+            <input type="search" name="search" placeholder="Поиск стримеров">
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Стример</th>
+                <th>Подписчиков</th>
+                <th>Статус</th>
+                <th>Категория</th>
+                <th>Дата изменения</th>
+                <th>Группа</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const streamer of streamers)
+            { %>
+                <tr data-key="id" data-value="<%=streamer.id%>">
+                    <td>
+                        <img src="<%=streamer.avatar_url%>" alt="avatar" width="50" height="50">
+                        <span><%=streamer.uniqueid%></span>
+                        <span>id: <%=streamer.tiktok_id%></span>
+                    </td>
+                    <td><%=streamer.follower_count%></td>
+                    <td data-key="status" data-value="<%=streamer.status%>"><%=translateStatus(streamer.status)%></td>
+                    <td data-key="category" data-value="<%=streamer.category%>"><%=translateCategory(streamer.category)%></td>
+                    <td><%=translateDate(streamer.updated)%></td>
+                    <td data-key="streamer_group" data-value="<%=streamer.streamer_group%>"><%=translateGroup(streamer.streamer_group)%></td>
+                    <td>
+                        <button data-modal="edit_streamer" data-modal_action="show"  data-modal_filler data-container_level="2">Edit</button>
+                    </td>
+
+                    <td data-key="stream" data-value="<%=streamer.stream%>" hidden></td>
+                    <td data-key="pledge" data-value="<%=streamer.pledge%>" hidden></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <dialog id="add_streamer">
+        <h2>Добавление стримера</h2>
+        <form method="POST" action="/streamers">
+            <label>
+                Статус стримера
+                <select name="status" required>
+                    <option disabled selected>Укажите статус стримера</option>
+                    <option value="CONTRACT">Подписан контракт</option>
+                    <option value="PREPARATION">Подготовка</option>
+                    <option value="ACTIVE">Активный стример</option>
+                    <option value="PAUSED">На паузе</option>
+                    <option value="FIRED">Уволен</option>
+                </select>
+            </label>
+            <label>
+                Категория стримера
+                <select name="category" required>
+                    <option disabled selected>Укажите категорию стримера</option>
+                    <option value="OUR">Наш стример</option>
+                    <option value="BACKSTAGE">Бекстейдж стример</option>
+                    <option value="OUTSIDE">Сторонний стример</option>
+                    <option value="ETC">Тд</option>
+                </select>
+            </label>
+            <label>
+                Выберите поток стримера
+                <select name="stream" required>
+                    <option disabled selected>Выбор потока стримера</option>
+                    <option value="STREAM_1">Первый поток</option>
+                    <option value="STREAM_2">Второй</option>
+                    <option value="STREAM_3">Третий</option>
+                </select>
+            </label>
+            <label>
+                Выберите группу стримера
+                <select name="streamer_group">
+                    <option value selected>Выбор группы стримера</option>
+                    <option value="GROUP_1">1 группа</option>
+                    <option value="GROUP_2">2 группа</option>
+                    <option value="GROUP_3">3 группа</option>
+                </select>
+            </label>
+            <label>
+                Залог
+                <input type="number" name="pledge" min="0" step="1" placeholder="Введите сумму залога">
+            </label>
+            <label>
+                UniqueId
+                <input type="text" name="uniqueId" placeholder="Введите uniqueId">
+            </label>
+            <div>
+                <button type="button" class="secondary" data-modal="add_streamer" data-modal_action="close">Закрыть</button>
+                <button>Добавить</button>
+            </div>
+            <input type="hidden" name="authentication" value="<%=req.authentication_code%>">
+        </form>
+    </dialog>
+
+    <dialog id="edit_streamer">
+        <h2>Редактирование стримера</h2>
+        <form method="POST" action="/streamers">
+            <label>
+                Статус стримера
+                <select name="status" required>
+                    <option disabled selected>Укажите статус стримера</option>
+                    <option value="CONTRACT">Подписан контракт</option>
+                    <option value="PREPARATION">Подготовка</option>
+                    <option value="ACTIVE">Активный стример</option>
+                    <option value="PAUSED">На паузе</option>
+                    <option value="FIRED">Уволен</option>
+                </select>
+            </label>
+            <label>
+                Категория стримера
+                <select name="category" required>
+                    <option disabled selected>Укажите категорию стримера</option>
+                    <option value="OUR">Наш стример</option>
+                    <option value="BACKSTAGE">Бекстейдж стример</option>
+                    <option value="OUTSIDE">Сторонний стример</option>
+                    <option value="ETC">Тд</option>
+                </select>
+            </label>
+            <label>
+                Выберите поток стримера
+                <select name="stream" required>
+                    <option disabled selected>Выбор потока стримера</option>
+                    <option value="STREAM_1">Первый поток</option>
+                    <option value="STREAM_2">Второй</option>
+                    <option value="STREAM_3">Третий</option>
+                </select>
+            </label>
+            <label>
+                Выберите группу стримера
+                <select name="streamer_group">
+                    <option value selected>Выбор группы стримера</option>
+                    <option value="GROUP_1">1 группа</option>
+                    <option value="GROUP_2">2 группа</option>
+                    <option value="GROUP_3">3 группа</option>
+                </select>
+            </label>
+            <label>
+                Залог
+                <input type="number" name="pledge" min="0" step="1" placeholder="Введите сумму залога">
+            </label>
+            <label>
+                UniqueId
+                <input type="text" name="uniqueId" placeholder="Введите uniqueId">
+            </label>
+            <div>
+                <button type="button" class="secondary" data-modal="add_streamer" data-modal_action="close">Закрыть</button>
+                <button>Добавить</button>
+            </div>
+            <input type="hidden" name="authentication" value="<%=req.authentication_code%>">
+            <input type="hidden" name="id">
+        </form>
+    </dialog>
+</main>

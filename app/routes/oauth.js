@@ -3,7 +3,8 @@ import { Database } from 'common/databases/PostgreSQL/PostgreSQL.js';
 
 async function register(app, options)
 {
-    const VALIDATE_SCHEMA = {
+    const VALIDATE_SCHEMA =
+    {
         query:
         {
             type: "object",
@@ -41,7 +42,8 @@ async function register(app, options)
         return { valid: false };
     });
 
-    const LOGIN_SCHEMA = {
+    const LOGIN_SCHEMA =
+    {
         body:
         {
             type: "object",

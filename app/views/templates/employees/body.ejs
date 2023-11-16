@@ -51,16 +51,18 @@ function translateDate(date)
         <tbody>
             <% for (const employee of employees)
             { %>
-                <tr data-value="<%=employee.id%>">
+                <tr data-key="id" data-value="<%=employee.id%>">
                     <td>
-                        <span data-value="<%=employee.login%>"><%=employee.login%></span><br>
+                        <span data-key="login" data-value="<%=employee.login%>"><%=employee.login%></span><br>
                         <span>Пароль: ********</span>
                     </td>
-                    <td data-value="<%=employee.access%>"><%=translateAccess(employee.access)%></td>
-                    <td data-value="<%=employee.responsibility%>"><%=translateResponsibility(employee.responsibility)%></td>
-                    <td data-value="<%=employee.updated.toISOString()%>"><%=translateDate(employee.updated)%></td>
-                    <td data-value="<%=employee.created.toISOString()%>"><%=translateDate(employee.created)%></td>
-                    <td><button data-modal="edit_employee" data-modal_action="show">Edit</button></td>
+                    <td data-key="access" data-value="<%=employee.access%>"><%=translateAccess(employee.access)%></td>
+                    <td data-key="responsibility" data-value="<%=employee.responsibility%>"><%=translateResponsibility(employee.responsibility)%></td>
+                    <td><%=translateDate(employee.updated)%></td>
+                    <td><%=translateDate(employee.created)%></td>
+                    <td>
+                        <button data-modal="edit_employee" data-modal_action="show" data-modal_filler data-container_level="2">Edit</button>
+                    </td>
                 </tr>
             <% } %>
         </tbody>

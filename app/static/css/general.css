@@ -3,6 +3,7 @@
     :root, ::backdrop
     {
         --brand-color: hsl(199, 90%, 50%);
+        --brand-hover-color: hsl(199, 98%, 64%);
         --background-color: hsl(240, 21%, 10%);
         --surface-color: hsl(240, 19%, 15%);
         --border-color: hsl(240, 15%, 19%);
@@ -13,6 +14,8 @@
         --text-inverse-color: hsl(240, 21%, 10%);
 
         --color-red: red;
+        --color-green: hsl(140, 100%, 49%);
+        --color-yellow: hsl(50, 90%, 50%);
     }
 
     :root, ::backdrop
@@ -128,7 +131,11 @@
         background-color: var(--brand-color); border: none; border-radius: var(--border-radius-regular);
         text-align: center; font-size: var(--font-size-regular); color: var(--text-inverse-color);
     }
+    button:hover { background: var(--brand-hover-color); }
+
     button.secondary { background: var(--surface-color); color: var(--brand-color); }
+    button.secondary:hover { border: thin solid var(--brand-color); }
+
     a { color: var(--brand-color); }
 }
 
@@ -138,8 +145,16 @@
     tr { border-top: thin solid var(--border-color); }
     tr > :first-child { padding-left: var(--padding-horizontal-big); }
     tr > :last-child { padding-right: var(--padding-horizontal-big); }
-    th { color: var(--text-minor-color); padding: var(--padding-regular); }
-    td { padding: var(--padding-regular); }
+    td, th { padding: var(--padding-regular); white-space: nowrap; }
+    th { color: var(--text-minor-color); }
+
+    td:first-child > span:last-child { color: var(--text-minor-color); }
+    td > button:hover { border: thin solid var(--brand-color); color: var(--brand-color); }
+    td > button
+    {
+        width: max-content; min-width: calc(var(--interactive-min-width) / 2);
+        border: thin solid var(--border-color); background: transparent; color: var(--text-minor-color);
+    }
 }
 
 @layer dialog
@@ -150,5 +165,6 @@
         position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; padding: var(--padding-big);
     }
 
+    dialog input { background: var(--surface-color); border: none; }
     dialog div:last-of-type { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sizing-regular); margin-top: var(--margin-vertical-regular); }
 }

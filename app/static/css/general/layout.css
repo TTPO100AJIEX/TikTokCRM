@@ -1,3 +1,8 @@
 body { display: grid; grid-template-columns: minmax(300px, auto) 1fr; grid-template-rows: min-content 1fr; }
 body > header { grid-column: 1 / -1; }
+
 main { background: var(--surface-color); margin: var(--margin-regular); overflow: auto; max-height: 100%; border-radius: var(--border-radius-regular); }
+
+main > div { padding: var(--padding-big); }
+main > div > p { color: var(--text-minor-color); }
+main > div > button { float: right; width: fit-content; padding: var(--padding-vertical-regular) var(--padding-horizontal-big); }

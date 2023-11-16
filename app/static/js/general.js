@@ -12,6 +12,26 @@ function handleModalEvent(ev)
     }
 }
 
+function loadModalData(ev)
+{
+    let container = ev.currentTarget;
+    const level = container.dataset.container_level ?? 1;
+    for (let i = 0; i < level; i++) container = container.parentElement;
+    const data_elements = container.querySelectorAll("[data-key][data-value]");
+
+    const id = ev.currentTarget.dataset.modal;
+    const modal = document.getElementById(id);
+    const form = modal.querySelector("form");
+    for (const element of data_elements)
+    {
+        form.elements[element.dataset.key].value = element.dataset.value;
+    }
+}
+
+Array.from(document.querySelectorAll("[data-modal][data-modal_filler]")).forEach(button =>
+{
+    button.addEventListener("click", loadModalData, { capture: false, once: false, passive: true });
+});
 Array.from(document.querySelectorAll("[data-modal]")).forEach(button =>
 {
     button.addEventListener("click", handleModalEvent, { capture: false, once: false, passive: true });

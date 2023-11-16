@@ -42,7 +42,7 @@ async function register(app, options)
                 "connect-src": [ "'self'", "'report-sample'" ],
                 "font-src": [ "'self'", "https://fonts.gstatic.com", "'report-sample'" ],
                 //"frame-src": [ "'self'" ],
-                "img-src": [ "'self'", "'report-sample'" ],
+                "img-src": [ "'self'", "*.tiktokcdn.com", "'report-sample'" ],
                 //"media-src": [ "'self'" ],
                 //"object-src": [ "'self'" ],
                 //"prefetch-src": [ "'self'" ],

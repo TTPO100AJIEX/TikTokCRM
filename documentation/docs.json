@@ -297,6 +297,91 @@
                     }
                 }
             }
+        },
+        "/streamers": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "uniqueId",
+                                    "status",
+                                    "category",
+                                    "stream",
+                                    "streamer_group",
+                                    "pledge",
+                                    "authentication"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "id": {
+                                        "$ref": "#/components/schemas/def-3"
+                                    },
+                                    "uniqueId": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "CONTRACT",
+                                            "PREPARATION",
+                                            "ACTIVE",
+                                            "PAUSED",
+                                            "FIRED"
+                                        ]
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "enum": [
+                                            "OUR",
+                                            "BACKSTAGE",
+                                            "OUTSIDE",
+                                            "ETC"
+                                        ]
+                                    },
+                                    "stream": {
+                                        "type": "string",
+                                        "enum": [
+                                            "STREAM_1",
+                                            "STREAM_2",
+                                            "STREAM_3"
+                                        ]
+                                    },
+                                    "streamer_group": {
+                                        "type": "string",
+                                        "enum": [
+                                            "GROUP_1",
+                                            "GROUP_2",
+                                            "GROUP_3"
+                                        ]
+                                    },
+                                    "pledge": {
+                                        "$ref": "#/components/schemas/def-3"
+                                    },
+                                    "authentication": {
+                                        "$ref": "#/components/schemas/def-0"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
         }
     },
     "servers": {

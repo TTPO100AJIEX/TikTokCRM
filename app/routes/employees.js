@@ -10,7 +10,8 @@ async function register(app, options)
         return res.render("general/layout.ejs", { template: "employees", employees })
     });
 
-    const POST_SCHEMA = {
+    const POST_SCHEMA =
+    {
         body:
         {
             type: "object",

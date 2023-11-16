@@ -1,0 +1,10 @@
+main > div > div { display: flex; gap: var(--sizing-regular); margin-top: var(--margin-vertical-regular); }
+main > div > div > input { width: unset; }
+main > div > div > input[type='datetime-local'] { background: transparent; }
+main > div > div > input[type='search'] { margin-left: auto; width: calc(2 * var(--interactive-min-width)); }
+
+td:first-of-type { display: grid; grid-template-columns: 50px auto; grid-template-rows: 1fr 1fr; column-gap: var(--sizing-regular); align-items: center; }
+td:first-of-type > img { grid-row: span 2; border-radius: var(--border-radius-regular); }
+:is([data-key='status'][data-value='PREPARATION'], select[name='status'] option[value='PREPARATION']) { color: var(--color-yellow); }
+[data-key='status'][data-value='CONTRACT'] { color: var(--color-brand); }
+[data-key='status'][data-value='ACTIVE'] { color: var(--color-green); }

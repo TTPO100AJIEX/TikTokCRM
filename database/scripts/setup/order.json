@@ -1,3 +1,6 @@
 [
-    "employees.sql"
+    "general.sql",
+
+    "employees.sql",
+    "streamers.sql"
 ]
