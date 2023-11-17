@@ -45,9 +45,9 @@ function translateGroup(group)
         <h1>Данные стримеров агенства</h1>
         <p>Сотрудники - стримеры</p>
         <div>
-            <input type="datetime-local" name="date_from">
-            <input type="datetime-local" name="date_from">
-            <input type="search" name="search" placeholder="Поиск стримеров">
+            <input type="datetime-local" id="date_from">
+            <input type="datetime-local" id="date_from">
+            <input type="search" id="search" placeholder="Поиск стримеров">
         </div>
     </div>
 
@@ -55,7 +55,7 @@ function translateGroup(group)
         <thead>
             <tr>
                 <th>Стример</th>
-                <th>Подписчиков</th>
+                <th class="sorter" id="followers_sorter">Подписчиков</th>
                 <th>Статус</th>
                 <th>Категория</th>
                 <th>Дата изменения</th>
@@ -64,15 +64,25 @@ function translateGroup(group)
             </tr>
         </thead>
         <tbody>
+            <%
+                streamers.push({ ...streamers[0], follower_count: 1000 })
+                streamers.push({ ...streamers[0], follower_count: 1150 })
+                streamers.push({ ...streamers[0], follower_count: 150 })
+                streamers.push({ ...streamers[0], follower_count: 245 })
+                streamers.push({ ...streamers[0], follower_count: 257000 })
+                streamers.push({ ...streamers[0], follower_count: 123321 })
+                streamers.push({ ...streamers[0], uniqueid: "test", follower_count: 233 })
+                streamers.push({ ...streamers[0], tiktok_id: 701, follower_count: 2 })
+            %>
             <% for (const streamer of streamers)
             { %>
                 <tr data-key="id" data-value="<%=streamer.id%>">
                     <td>
                         <img src="<%=streamer.avatar_url%>" alt="avatar" width="50" height="50">
-                        <span><%=streamer.uniqueid%></span>
-                        <span>id: <%=streamer.tiktok_id%></span>
+                        <span data-key="uniqueId" data-value="<%=streamer.uniqueid%>"><%=streamer.uniqueid%></span>
+                        <span data-key="tiktok_id" data-value="<%=streamer.tiktok_id%>">id: <%=streamer.tiktok_id%></span>
                     </td>
-                    <td><%=streamer.follower_count%></td>
+                    <td data-key="follower_count" data-value="<%=streamer.follower_count%>"><%=streamer.follower_count%></td>
                     <td data-key="status" data-value="<%=streamer.status%>"><%=translateStatus(streamer.status)%></td>
                     <td data-key="category" data-value="<%=streamer.category%>"><%=translateCategory(streamer.category)%></td>
                     <td><%=translateDate(streamer.updated)%></td>
@@ -197,7 +207,7 @@ function translateGroup(group)
                 <input type="text" name="uniqueId" placeholder="Введите uniqueId">
             </label>
             <div>
-                <button type="button" class="secondary" data-modal="add_streamer" data-modal_action="close">Закрыть</button>
+                <button type="button" class="secondary" data-modal="edit_streamer" data-modal_action="close">Закрыть</button>
                 <button>Добавить</button>
             </div>
             <input type="hidden" name="authentication" value="<%=req.authentication_code%>">
