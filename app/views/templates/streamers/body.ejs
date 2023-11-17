@@ -20,8 +20,18 @@ function translateCategory(category)
         case 'ETC': return "Тд";
     }
 }
+function translateStream(group)
+{
+    switch (group)
+    {
+        case 'STREAM_1': return "Первый поток";
+        case 'STREAM_2': return "Второй";
+        case 'STREAM_3': return "Третий";
+    }
+}
 function translateDate(date)
 {
+    if (!date) return "undefined";
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const hour = date.getHours().toString().padStart(2, "0");
@@ -55,11 +65,18 @@ function translateGroup(group)
         <thead>
             <tr>
                 <th>Стример</th>
-                <th class="sorter" id="followers_sorter">Подписчиков</th>
+                <th class="sorter" id="followers_sorter">follower_count</th>
                 <th>Статус</th>
                 <th>Категория</th>
-                <th>Дата изменения</th>
-                <th>Группа</th>
+                <th>Поток стримера</th>
+                <th>Группа стримера</th>
+                <th>Дата первого стрима</th>
+                <th>Последняя трансляция</th>
+                <th>Количество алмазов</th>
+                <th>Количество минут</th>
+                <th>Залог</th>
+                <th>дата бд</th>
+                <th>дата изм.данных</th>
                 <th>Действие</th>
             </tr>
         </thead>
@@ -76,14 +93,18 @@ function translateGroup(group)
                     <td data-key="follower_count" data-value="<%=streamer.follower_count%>"><%=streamer.follower_count%></td>
                     <td data-key="status" data-value="<%=streamer.status%>"><%=translateStatus(streamer.status)%></td>
                     <td data-key="category" data-value="<%=streamer.category%>"><%=translateCategory(streamer.category)%></td>
-                    <td data-key="updated" data-value="<%=streamer.updated.toISOString()%>"><%=translateDate(streamer.updated)%></td>
+                    <td data-key="stream" data-value="<%=streamer.stream%>"><%=translateStream(streamer.stream)%></td>
                     <td data-key="streamer_group" data-value="<%=streamer.streamer_group%>"><%=translateGroup(streamer.streamer_group)%></td>
+                    <td><%=translateDate(streamer.first_stream)%></td>
+                    <td><%=translateDate(streamer.last_stream)%></td>
+                    <td><%=streamer.total_time%></td>
+                    <td><%=streamer.total_diamonds%></td>
+                    <td data-key="pledge" data-value="<%=streamer.pledge%>"><%=streamer.pledge%></td>
+                    <td><%=translateDate(streamer.created)%></td>
+                    <td data-key="updated" data-value="<%=streamer.updated.toISOString()%>"><%=translateDate(streamer.updated)%></td>
                     <td>
                         <button data-modal="edit_streamer" data-modal_action="show"  data-modal_filler data-container_level="2">Edit</button>
                     </td>
-
-                    <td data-key="stream" data-value="<%=streamer.stream%>" hidden></td>
-                    <td data-key="pledge" data-value="<%=streamer.pledge%>" hidden></td>
                 </tr>
             <% } %>
         </tbody>

@@ -2,5 +2,6 @@
     "general.sql",
 
     "employees.sql",
-    "streamers.sql"
+    "streamers.sql",
+    "streamers_view.sql"
 ]

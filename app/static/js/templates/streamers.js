@@ -62,7 +62,8 @@ const date_from = document.getElementById("date_from");
 function dateFilterRule(tr)
 {
     const date = new Date(tr.querySelector("[data-key='updated']").dataset.value);
-    return date > new Date(date_from.value) && date < new Date(date_to.value);
+    if (!date_from.value || !date_to.value) return true;
+    return date >= new Date(date_from.value) && date < new Date(date_to.value);
 }
 date_to.addEventListener("input", filter.bind(this, dateFilterRule), { capture: false, once: false, passive: true });
 date_from.addEventListener("input", filter.bind(this, dateFilterRule), { capture: false, once: false, passive: true });

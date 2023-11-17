@@ -4,8 +4,7 @@ async function register(app, options)
 {
     app.get("/streamers", { config: { access: "ceo" } }, async (req, res) =>
     {
-        const fields = "id, avatar_url, unique_id, tiktok_id, follower_count, status, category, stream, streamer_group, pledge, updated";
-        const streamers = await Database.execute(`SELECT ${fields} FROM streamers`);
+        const streamers = await Database.execute(`SELECT * FROM streamers_view`);
         return res.render("general/layout.ejs", { template: "streamers", streamers });
     });
 
