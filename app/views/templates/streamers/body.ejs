@@ -45,8 +45,8 @@ function translateGroup(group)
         <h1>Данные стримеров агенства</h1>
         <p>Сотрудники - стримеры</p>
         <div>
-            <input type="datetime-local" id="date_from">
-            <input type="datetime-local" id="date_from">
+            <input type="date" id="date_from">
+            <input type="date" id="date_to">
             <input type="search" id="search" placeholder="Поиск стримеров">
         </div>
     </div>
@@ -85,7 +85,7 @@ function translateGroup(group)
                     <td data-key="follower_count" data-value="<%=streamer.follower_count%>"><%=streamer.follower_count%></td>
                     <td data-key="status" data-value="<%=streamer.status%>"><%=translateStatus(streamer.status)%></td>
                     <td data-key="category" data-value="<%=streamer.category%>"><%=translateCategory(streamer.category)%></td>
-                    <td><%=translateDate(streamer.updated)%></td>
+                    <td data-key="updated" data-value="<%=streamer.updated.toISOString()%>"><%=translateDate(streamer.updated)%></td>
                     <td data-key="streamer_group" data-value="<%=streamer.streamer_group%>"><%=translateGroup(streamer.streamer_group)%></td>
                     <td>
                         <button data-modal="edit_streamer" data-modal_action="show"  data-modal_filler data-container_level="2">Edit</button>
