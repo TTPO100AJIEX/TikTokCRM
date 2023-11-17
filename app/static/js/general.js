@@ -24,7 +24,8 @@ function loadModalData(ev)
     const form = modal.querySelector("form");
     for (const element of data_elements)
     {
-        form.elements[element.dataset.key].value = element.dataset.value;
+        const { key, value } = element.dataset;
+        if (key in form.elements) form.elements[key].value = value;
     }
 }
 
