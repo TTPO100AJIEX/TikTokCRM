@@ -27,7 +27,7 @@ function followersDescComparator(...args)
 }
 function followersDefaultComparator(a, b)
 {
-    return Math.random() - 0.5;
+    return a.dataset.index - b.dataset.index;
 }
 followers_sorter.addEventListener("click", ev =>
 {
@@ -50,7 +50,7 @@ followers_sorter.addEventListener("click", ev =>
 const search = document.getElementById("search");
 function searchFilterRule(tr)
 {
-    const unique_id = tr.querySelector("[data-key='uniqueId']").dataset.value;
+    const unique_id = tr.querySelector("[data-key='unique_id']").dataset.value;
     const tiktok_id = tr.querySelector("[data-key='tiktok_id']").dataset.value;
     return search.value.length == 0 || search.value == unique_id || search.value == tiktok_id;
 }

@@ -6,7 +6,7 @@ CREATE TABLE streamers
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     avatar_url URL NOT NULL,
-    uniqueId TEXT NOT NULL,
+    unique_id TEXT NOT NULL,
     tiktok_id BIGINT NOT NULL,
     follower_count INT NOT NULL CHECK (follower_count >= 0),
     status STREAMER_STATUS NOT NULL,
@@ -17,8 +17,11 @@ CREATE TABLE streamers
     last_stream TIMESTAMPTZ,
     pledge INT NOT NULL CHECK (pledge >= 0),
     created TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_processed TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX streamers_last_processed_index ON streamers(last_processed);
 
 
 CREATE FUNCTION streamers_sync_updated() RETURNS TRIGGER

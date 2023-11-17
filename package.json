@@ -7,6 +7,7 @@
   "description": "",
   "scripts": {
     "app": "node app/index.js",
+    "database": "node database/index.js",
     "db:backup": "node database/scripts/backup.js",
     "db:delete": "node database/scripts/delete.js",
     "db:create": "node database/scripts/create.js",

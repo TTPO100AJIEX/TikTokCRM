@@ -206,7 +206,7 @@ paths:
             schema:
               type: object
               required:
-                - uniqueId
+                - unique_id
                 - status
                 - category
                 - stream
@@ -217,7 +217,7 @@ paths:
               properties:
                 id:
                   $ref: "#/components/schemas/def-3"
-                uniqueId:
+                unique_id:
                   type: string
                 status:
                   type: string
