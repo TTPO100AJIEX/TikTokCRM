@@ -18,7 +18,8 @@ CREATE TABLE streamers
     pledge INT NOT NULL CHECK (pledge >= 0),
     created TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    last_processed TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    last_processed TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    stream_start TIMESTAMPTZ
 );
 
 CREATE INDEX streamers_last_processed_index ON streamers(last_processed);

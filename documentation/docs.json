@@ -135,6 +135,15 @@
                 }
             }
         },
+        "/accounting": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
         "/employees": {
             "get": {
                 "responses": {

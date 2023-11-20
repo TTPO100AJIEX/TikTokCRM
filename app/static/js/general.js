@@ -22,7 +22,7 @@ function loadModalData(ev)
     const id = ev.currentTarget.dataset.modal;
     const modal = document.getElementById(id);
     const form = modal.querySelector("form");
-    for (const element of data_elements)
+    for (const element of [ ...data_elements, container ])
     {
         const { key, value } = element.dataset;
         if (key in form.elements) form.elements[key].value = value;

@@ -128,7 +128,7 @@
     button
     {
         display: block; min-width: var(--interactive-min-width); width: 100%; min-height: var(--interactive-min-height); padding: var(--padding-regular);
-        background-color: var(--brand-color); border: none; border-radius: var(--border-radius-regular);
+        background-color: var(--brand-color); border: thin solid transparent; border-radius: var(--border-radius-regular);
         text-align: center; font-size: var(--font-size-regular); color: var(--text-inverse-color);
     }
     button:hover { background: var(--brand-hover-color); }

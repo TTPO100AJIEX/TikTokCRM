@@ -3,5 +3,6 @@
 
     "employees.sql",
     "streamers.sql",
+    "accounting.sql",
     "streamers_view.sql"
 ]

@@ -1,0 +1,7 @@
+td:first-of-type { display: grid; grid-template-columns: 50px auto; grid-template-rows: 1fr 1fr; column-gap: var(--sizing-regular); align-items: center; }
+td:first-of-type > img { grid-row: span 2; border-radius: var(--border-radius-regular); }
+
+td:not(:first-of-type)
+{
+    
+}

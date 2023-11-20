@@ -1,0 +1,38 @@
+<%
+function translateDate(date)
+{
+    if (!date) return "undefined";
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    return `${month}.${day}.${date.getFullYear()}`;
+}
+%>
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>Стример</th>
+                <% for (const date of days) { %> <th><%=translateDate(date)%></th> <% } %>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const streamer of streamers)
+            { %>
+                <tr >
+                    <td>
+                        <img src="<%=streamer.avatar_url%>" alt="avatar" width="50" height="50">
+                        <span><%=streamer.unique_id%></span>
+                        <span>id: <%=streamer.tiktok_id%></span>
+                    </td>
+                    <% for (const { time, diamonds } of streamer)
+                    { %>
+                        <td>
+                            Время: <%=time.toMinutes()%>
+                            Заработок: <%=diamonds%>$
+                        </td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</main>

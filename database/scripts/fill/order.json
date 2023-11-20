@@ -1,4 +1,5 @@
 [
     "employees.sql",
-    "streamers.sql"
+    "streamers.sql",
+    "accounting.sql"
 ]

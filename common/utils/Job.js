@@ -23,13 +23,13 @@ export default class Job
     run()
     {
         const start = new Date();
-        const result = this.executor(this);
-        result.then(result =>
+        this.executor(this)
+        .then(result =>
         {
             this.last_run = { start, end: new Date(), status: "SUCCESS" };
             this.schedule(result);
-        });
-        result.catch(err =>
+        })
+        .catch(err =>
         {
             this.last_run = { start, end: new Date(), status: "FAIL" };
             console.error(err);
@@ -44,7 +44,8 @@ export default class Job
         if (this.name)
         {
             const completed_in = new Interval((this.last_run.end - this.last_run.start) / 1000);
-            console.info(`Completed job ${this.name} in ${completed_in.toFormat()}`);
+            const log_status = this.last_run.status == "SUCCESS" ? "Completed" : "Failed";
+            console.info(`${log_status} job ${this.name} in ${completed_in.toFormat()}`);
         }
         
         if (this.interval instanceof Interval)
