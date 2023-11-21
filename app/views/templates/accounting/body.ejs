@@ -8,31 +8,48 @@ function translateDate(date)
 }
 %>
 <main>
-    <table>
-        <thead>
-            <tr>
-                <th>Стример</th>
-                <% for (const date of days) { %> <th><%=translateDate(date)%></th> <% } %>
-            </tr>
-        </thead>
-        <tbody>
-            <% for (const streamer of streamers)
-            { %>
-                <tr >
-                    <td>
-                        <img src="<%=streamer.avatar_url%>" alt="avatar" width="50" height="50">
-                        <span><%=streamer.unique_id%></span>
-                        <span>id: <%=streamer.tiktok_id%></span>
-                    </td>
-                    <% for (const { time, diamonds } of streamer)
-                    { %>
-                        <td>
-                            Время: <%=time.toMinutes()%>
-                            Заработок: <%=diamonds%>$
-                        </td>
-                    <% } %>
+    <form method="POST" action="/accounting">
+        <div>
+            <button>Сохранить</button>
+            <h1>Учет данных</h1>
+            <p>Данные стримеров о заработке и времени трансляции</p>
+        </div>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Стример</th>
+                    <% for (const date of days) { %> <th><%=translateDate(date)%></th> <% } %>
                 </tr>
-            <% } %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% for (const streamer of streamers)
+                { %>
+                    <tr >
+                        <td>
+                            <img src="<%=streamer.avatar_url%>" alt="avatar" width="50" height="50">
+                            <span><%=streamer.unique_id%></span>
+                            <span>id: <%=streamer.tiktok_id%></span>
+                        </td>
+                        <% for (const { day, time, diamonds } of streamer)
+                        {
+                            const date = `${day.getDate()}-${day.getMonth()}-${day.getFullYear()}`; %>
+                            <td>
+                                <label>
+                                    Время:
+                                    <input name="time-<%=streamer.id%>-<%=date%>" type="number" step="1" value="<%=time.toMinutes()%>" required>
+                                </label>
+                                <label>
+                                    Заработок:
+                                    <input name="diamonds-<%=streamer.id%>-<%=date%>" type="number" step="1" value="<%=diamonds%>" required>
+                                </label>
+                            </td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <input type="hidden" name="authentication" value="<%=req.authentication_code%>">
+    </form>
 </main>

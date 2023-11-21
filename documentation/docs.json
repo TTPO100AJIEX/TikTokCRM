@@ -142,6 +142,34 @@
                         "description": "Default Response"
                     }
                 }
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "authentication"
+                                ],
+                                "additionalProperties": {
+                                    "$ref": "#/components/schemas/def-3"
+                                },
+                                "properties": {
+                                    "authentication": {
+                                        "$ref": "#/components/schemas/def-0"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
             }
         },
         "/employees": {

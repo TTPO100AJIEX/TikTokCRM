@@ -3,6 +3,6 @@ body > header { grid-column: 1 / -1; }
 
 main { background: var(--surface-color); margin: var(--margin-regular); overflow: auto; max-height: 100%; border-radius: var(--border-radius-regular); }
 
-main > div > p { color: var(--text-minor-color); }
-main > div { padding: var(--padding-big); position: sticky; left: 0; }
-main > div > button { float: right; width: fit-content; padding: var(--padding-vertical-regular) var(--padding-horizontal-big); }
+main > div > p, main > form > div > p { color: var(--text-minor-color); }
+main > div, main > form > div { padding: var(--padding-big); position: sticky; left: 0; }
+main > div > button, main > form > div > button { float: right; width: fit-content; padding: var(--padding-vertical-regular) var(--padding-horizontal-big); }

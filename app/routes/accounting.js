@@ -18,54 +18,48 @@ async function register(app, options)
             function getData(day)
             {
                 if (data[i]?.day.getTime() == day.getTime()) return data[i++];
-                return { time: new Interval(0), diamonds: 0 };
+                return { day, time: new Interval(0), diamonds: 0 };
             }
             streamers.push(Object.assign(days.map(getData), data[i - 1]));
         }
         return res.render("general/layout.ejs", { template: "accounting", days, streamers });
     });
 
-    /*const POST_SCHEMA =
+    const POST_SCHEMA =
     {
         body:
         {
             type: "object",
-            required: [ "unique_id", "status", "category", "stream", "streamer_group", "pledge", "authentication" ],
+            required: [ "authentication" ],
             additionalProperties: false,
             properties:
             {
-                "id": { $ref: "uint" },
-                "unique_id": { type: "string" },
-                "status": { type: "string", enum: [ 'CONTRACT', 'PREPARATION', 'ACTIVE', 'PAUSED', 'FIRED' ] },
-                "category": { type: "string", enum: [ 'OUR', 'BACKSTAGE', 'OUTSIDE', 'ETC' ] },
-                "stream": { type: "string", enum: [ 'STREAM_1', 'STREAM_2', 'STREAM_3' ] },
-                "streamer_group": { type: "string", enum: [ 'GROUP_1', 'GROUP_2', 'GROUP_3' ] },
-                "pledge": { $ref: "uint" },
                 "authentication": { $ref: "authentication" }
+            },
+            patternProperties:
+            {
+                "^time-[\\d]-[\\d]{1,2}-[\\d]{1,2}-[\\d]{4}$": { $ref: "uint" },
+                "^diamonds-[\\d]-[\\d]{1,2}-[\\d]{1,2}-[\\d]{4}$": { $ref: "uint" }
             }
         }
     };
-    app.post("/streamers", { schema: POST_SCHEMA, config: { authentication: true, access: "admin" } }, async (req, res) =>
+    app.post("/accounting", { schema: POST_SCHEMA, config: { authentication: true, access: "admin" } }, async (req, res) =>
     {
-        const { id, status, category, stream, streamer_group, pledge, unique_id } = req.body;
-        const url = `https://tiktok.com/api-live/user/room/?aid=1988&sourceType=54&uniqueId=${unique_id}`;
-        const tiktok_request = await fetch(url, { method: "GET" });
-        const { data } = await tiktok_request.json();
-
-        if ('id' in req.body)
+        const batch = new Database.AnonymousBatch();
+        batch.execute("TRUNCATE TABLE accounting");
+        for (const key in req.body)
         {
-            const params = [ status, category, stream, streamer_group, pledge, unique_id, data.user.id, data.user.avatarThumb, data.stats.followerCount, id ];
-            const fields = "status = $1, category = $2, stream = $3, streamer_group = $4, pledge = $5, unique_id = $6, tiktok_id = $7, avatar_url = $8, follower_count = $9";
-            await Database.execute(`UPDATE streamers SET ${fields} WHERE id = $10`, params);
+            const [ field, streamer_id, day, month, year ] = key.split('-');
+            if (field != "time") continue;
+            const date = new Date(year, month, day, 12, 0, 0, 0);
+            const diamonds = req.body[`diamonds-${streamer_id}-${day}-${month}-${year}`];
+            const time = new Interval(req.body[`time-${streamer_id}-${day}-${month}-${year}`] * 60);
+            const query_string = `INSERT INTO accounting (streamer_id, day, time, diamonds) VALUES (%L, %L::date, %L, %L)`;
+            batch.execute(Database.format(query_string, streamer_id, date, time.toPostgres(), diamonds));
         }
-        else
-        {
-            const params = [ status, category, stream, streamer_group, pledge, unique_id, data.user.id, data.user.avatarThumb, data.stats.followerCount ];
-            const fields = "status, category, stream, streamer_group, pledge, unique_id, tiktok_id, avatar_url, follower_count";
-            await Database.execute(`INSERT INTO streamers (${fields}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`, params);
-        }
-        return res.status(303).redirect("/streamers");
-    });*/
+        await batch.commit();
+        return res.status(303).redirect("/accounting");
+    });
 }
 
 import plugin from 'fastify-plugin';
