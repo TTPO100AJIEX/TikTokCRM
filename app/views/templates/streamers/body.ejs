@@ -98,7 +98,7 @@ function translateGroup(group)
                     <td><%=translateDate(streamer.first_stream)%></td>
                     <td><%=translateDate(streamer.last_stream)%></td>
                     <td><%=streamer.total_diamonds%></td>
-                    <td><%=streamer.total_time.toMinutes()%></td>
+                    <td><%=streamer.total_time?.toMinutes()%></td>
                     <td data-key="pledge" data-value="<%=streamer.pledge%>"><%=streamer.pledge%></td>
                     <td><%=translateDate(streamer.created)%></td>
                     <td data-key="updated" data-value="<%=streamer.updated.toISOString()%>"><%=translateDate(streamer.updated)%></td>

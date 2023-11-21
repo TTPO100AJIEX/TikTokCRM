@@ -52,7 +52,7 @@ function searchFilterRule(tr)
 {
     const unique_id = tr.querySelector("[data-key='unique_id']").dataset.value;
     const tiktok_id = tr.querySelector("[data-key='tiktok_id']").dataset.value;
-    return search.value.length == 0 || search.value == unique_id || search.value == tiktok_id;
+    return search.value.length == 0 || unique_id.includes(search.value) || tiktok_id.includes(search.value);
 }
 search.addEventListener("input", filter.bind(this, searchFilterRule), { capture: false, once: false, passive: true });
 
