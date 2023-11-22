@@ -23,6 +23,7 @@ CREATE TABLE streamers
 );
 
 CREATE INDEX streamers_last_processed_index ON streamers(last_processed);
+CREATE INDEX streamers_streamer_group_index ON streamers(streamer_group);
 
 
 CREATE FUNCTION streamers_sync_updated() RETURNS TRIGGER

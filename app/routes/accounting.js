@@ -10,7 +10,8 @@ async function register(app, options)
 
         const streamers = [ ];
         const maxDay = new Date();
-        const minDay = Math.min(...data.map(e => e.day).filter(e => e));
+        const streamer_days = data.map(e => e.day).filter(e => e);
+        const minDay = streamer_days.length == 0 ? new Date() : Math.min(...streamer_days);
         const total_days = Math.floor((maxDay - minDay) / DAY_TO_MS) + 1;
         const days = new Array(total_days).fill(null).map((_, day) => new Date(minDay + day * DAY_TO_MS));
         for (let i = 0; i < data.length; )
@@ -47,19 +48,40 @@ async function register(app, options)
     };
     app.post("/accounting", { schema: POST_SCHEMA, config: { authentication: true, access: [ "admin", "curator" ] } }, async (req, res) =>
     {
+        let allowed;
+        switch (req.authorization.access)
+        {
+            case "ADMIN":
+            {
+                allowed = (streamer_id) => true;
+            }
+            default:
+            {
+                const responsibility = req.authorization.responsibility;
+                const query_string = `SELECT id FROM streamers WHERE streamer_group = $1`;
+                const data = await Database.execute(query_string, [ responsibility ]);
+                const ids = new Set(data.map(e => e.id));
+                allowed = (streamer_id) => ids.has(Number(streamer_id));
+            }
+        }
+
         const batch = new Database.AnonymousBatch();
-        batch.execute("TRUNCATE TABLE accounting");
         for (const key in req.body)
         {
             const [ field, streamer_id, day, month, year ] = key.split('-');
-            if (field != "time") continue;
+            console.log(streamer_id)
+            if (field != "time" || !allowed(streamer_id)) continue;
             const date = new Date(year, month, day, 12, 0, 0, 0);
             const diamonds = req.body[`diamonds-${streamer_id}-${day}-${month}-${year}`];
             const time = new Interval(req.body[`time-${streamer_id}-${day}-${month}-${year}`] * 60);
-            const query_string = `INSERT INTO accounting (streamer_id, day, time, diamonds) VALUES (%L, %L::date, %L, %L)`;
+            const query_string = `
+                INSERT INTO accounting (streamer_id, day, time, diamonds) VALUES (%L, %L::date, %L, %L)
+                ON CONFLICT (streamer_id, day) DO UPDATE SET time = excluded.time, diamonds = excluded.diamonds
+            `;
             batch.execute(Database.format(query_string, streamer_id, date, time.toPostgres(), diamonds));
         }
         await batch.commit();
+
         return res.status(303).redirect("/accounting");
     });
 }
