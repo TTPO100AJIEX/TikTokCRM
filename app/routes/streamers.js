@@ -2,7 +2,7 @@ import { Database } from 'common/databases/PostgreSQL/PostgreSQL.js';
 
 async function register(app, options)
 {
-    app.get("/streamers", { config: { access: "ceo" } }, async (req, res) =>
+    app.get("/streamers", { config: { access: [ "ceo", "curator" ] } }, async (req, res) =>
     {
         const streamers = await Database.execute(`SELECT * FROM streamers_view`);
         return res.render("general/layout.ejs", { template: "streamers", streamers });
@@ -28,9 +28,11 @@ async function register(app, options)
             }
         }
     };
-    app.post("/streamers", { schema: POST_SCHEMA, config: { authentication: true, access: "admin" } }, async (req, res) =>
+    app.post("/streamers", { schema: POST_SCHEMA, config: { authentication: true, access: [ "admin", "curator" ] } }, async (req, res) =>
     {
+        const { access, responsibility } = req.authorization;
         const { id, status, category, stream, streamer_group, pledge, unique_id } = req.body;
+        if (access != "ADMIN" && responsibility != streamer_group) throw 403;
         const url = `https://tiktok.com/api-live/user/room/?aid=1988&sourceType=54&uniqueId=${unique_id}`;
         const tiktok_request = await fetch(url, { method: "GET" });
         const { data } = await tiktok_request.json();
@@ -39,7 +41,9 @@ async function register(app, options)
         {
             const params = [ status, category, stream, streamer_group, pledge, unique_id, data.user.id, data.user.avatarThumb, data.stats.followerCount, id ];
             const fields = "status = $1, category = $2, stream = $3, streamer_group = $4, pledge = $5, unique_id = $6, tiktok_id = $7, avatar_url = $8, follower_count = $9";
-            await Database.execute(`UPDATE streamers SET ${fields} WHERE id = $10`, params);
+            const query_string = `UPDATE streamers SET ${fields} WHERE id = $10`;
+            if (access == "ADMIN") await Database.execute(query_string, params);
+            else await Database.execute(query_string + ` AND streamer_group = $11`, [ ...params, responsibility  ]);
         }
         else
         {
