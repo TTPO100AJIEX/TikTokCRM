@@ -8,13 +8,13 @@ function translateDate(date)
 }
 %>
 <main>
-    <form method="POST" action="/accounting">
-        <div>
-            <button>Сохранить</button>
-            <h1>Учет данных</h1>
-            <p>Данные стримеров о заработке и времени трансляции</p>
-        </div>
-    
+    <div>
+        <button form="save_form">Сохранить</button>
+        <h1>Учет данных</h1>
+        <p>Данные стримеров о заработке и времени трансляции</p>
+    </div>
+
+    <form id="save_form" method="POST" action="/accounting">
         <table>
             <thead>
                 <tr>

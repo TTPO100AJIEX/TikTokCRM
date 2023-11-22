@@ -54,6 +54,7 @@ async function register(app, options)
             case "ADMIN":
             {
                 allowed = (streamer_id) => true;
+                break;
             }
             default:
             {
