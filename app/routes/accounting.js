@@ -69,7 +69,6 @@ async function register(app, options)
         for (const key in req.body)
         {
             const [ field, streamer_id, day, month, year ] = key.split('-');
-            console.log(streamer_id)
             if (field != "time" || !allowed(streamer_id)) continue;
             const date = new Date(year, month, day, 12, 0, 0, 0);
             const diamonds = req.body[`diamonds-${streamer_id}-${day}-${month}-${year}`];
