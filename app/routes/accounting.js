@@ -5,11 +5,15 @@ async function register(app, options)
 {
     app.get("/accounting", { config: { access: [ "ceo", "curator" ] } }, async (req, res) =>
     {
-        const DAY_TO_MS = 24 * 60 * 60 * 1000;
-        const data = await Database.execute(`SELECT * FROM accounting RIGHT JOIN streamers ON streamer_id = id ORDER BY id ASC, day ASC`);
+        let data = [ ];
+        const { access, responsibility } = req.authorization;
+        const base_query_string = `SELECT * FROM accounting RIGHT JOIN streamers ON streamer_id = id`;
+        if (access == "ADMIN") data = await Database.execute(`${base_query_string} ORDER BY id ASC, day ASC`);
+        else data = await Database.execute(`${base_query_string} WHERE streamer_group = $1 ORDER BY id ASC, day ASC`, [ responsibility ]);
 
         const streamers = [ ];
         const maxDay = new Date();
+        const DAY_TO_MS = 24 * 60 * 60 * 1000;
         const streamer_days = data.map(e => e.day).filter(e => e);
         const minDay = streamer_days.length == 0 ? new Date() : Math.min(...streamer_days);
         const total_days = Math.floor((maxDay - minDay) / DAY_TO_MS) + 1;

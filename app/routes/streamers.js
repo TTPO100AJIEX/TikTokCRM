@@ -4,7 +4,11 @@ async function register(app, options)
 {
     app.get("/streamers", { config: { access: [ "ceo", "curator" ] } }, async (req, res) =>
     {
-        const streamers = await Database.execute(`SELECT * FROM streamers_view`);
+        let streamers = [ ];
+        const { access, responsibility } = req.authorization;
+        const base_query_string = `SELECT * FROM streamers_view`;
+        if (access == "ADMIN") streamers = await Database.execute(base_query_string);
+        else streamers = await Database.execute(`${base_query_string} WHERE streamer_group = $1`, [ responsibility ]);
         return res.render("general/layout.ejs", { template: "streamers", streamers });
     });
 
