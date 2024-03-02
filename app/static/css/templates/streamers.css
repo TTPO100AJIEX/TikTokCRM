@@ -33,3 +33,10 @@ select[name='status']:has(option[value='ACTIVE']:checked)
     content: ''; display: inline-block; height: 0.6em; width: 0.6em; margin-left: var(--margin-horizontal-interactive);
     transform: translateY(-35%) rotate(45deg); border-width: 2px; border-style: solid; border-color: transparent currentColor currentColor transparent;
 }
+
+.filter
+{
+    aspect-ratio: 1/1; padding: 0; min-width: unset; display: flex; place-items: center; place-content: center;
+    border: thin solid var(--border-color); background: transparent; margin-right: var(--margin-horizontal-regular);
+}
+#filter { accent-color: var(--color-green); width: max-content; }

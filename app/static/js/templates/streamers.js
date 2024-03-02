@@ -67,3 +67,14 @@ function dateFilterRule(tr)
 }
 date_to.addEventListener("input", filter.bind(this, dateFilterRule), { capture: false, once: false, passive: true });
 date_from.addEventListener("input", filter.bind(this, dateFilterRule), { capture: false, once: false, passive: true });
+
+
+function handleHideEvent(ev)
+{
+    const status = ev.currentTarget.checked ? "visible" : "collapse";
+    document.getElementById(ev.currentTarget.dataset.hide).style.visibility = status;
+}
+Array.from(document.querySelectorAll("[data-hide]")).forEach(checkbox =>
+{
+    checkbox.addEventListener("change", handleHideEvent, { capture: false, once: false, passive: true });
+});

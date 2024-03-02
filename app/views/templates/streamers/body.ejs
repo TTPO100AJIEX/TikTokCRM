@@ -52,6 +52,7 @@ function translateGroup(group)
 <main>
     <div>
         <button data-modal="add_streamer" data-modal_action="show">Добавить стримера</button>
+        <button class="filter" data-modal="filter" data-modal_action="show"> <img src="/static/images/filter.svg" alt="filter"> </button>
         <h1>Данные стримеров агенства</h1>
         <p>Сотрудники - стримеры</p>
         <div>
@@ -62,6 +63,22 @@ function translateGroup(group)
     </div>
 
     <table>
+        <colgroup>
+            <col id="streamer"></col>
+            <col id="follower_count"></col>
+            <col id="status"></col>
+            <col id="category"></col>
+            <col id="stream"></col>
+            <col id="streamer_group"></col>
+            <col id="first_stream"></col>
+            <col id="last_stream"></col>
+            <col id="total_diamonds"></col>
+            <col id="total_time"></col>
+            <col id="pledge"></col>
+            <col id="created"></col>
+            <col id="updated"></col>
+            <col id="action"></col>
+        </colgroup>
         <thead>
             <tr>
                 <th>Стример</th>
@@ -110,6 +127,21 @@ function translateGroup(group)
         </tbody>
     </table>
 
+    <dialog id="filter">
+        <label> <input type="checkbox" checked data-hide="follower_count"> follower_count </label>
+        <label> <input type="checkbox" checked data-hide="status"> Статус </label>
+        <label> <input type="checkbox" checked data-hide="category"> Категория </label>
+        <label> <input type="checkbox" checked data-hide="stream"> Поток стримера </label>
+        <label> <input type="checkbox" checked data-hide="streamer_group"> Группа стримера </label>
+        <label> <input type="checkbox" checked data-hide="first_stream"> Дата первого стрима </label>
+        <label> <input type="checkbox" checked data-hide="last_stream"> Последняя трансляция </label>
+        <label> <input type="checkbox" checked data-hide="total_diamonds"> Количество алмазов </label>
+        <label> <input type="checkbox" checked data-hide="total_time"> Количество минут </label>
+        <label> <input type="checkbox" checked data-hide="pledge"> Залог </label>
+        <label> <input type="checkbox" checked data-hide="created"> дата бд </label>
+        <label> <input type="checkbox" checked data-hide="updated"> дата изм.данных </label>
+    </dialog>
+    
     <dialog id="add_streamer">
         <h2>Добавление стримера</h2>
         <form method="POST" action="/streamers">

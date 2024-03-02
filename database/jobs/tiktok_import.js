@@ -3,7 +3,8 @@ import { Database } from "common/databases/PostgreSQL/PostgreSQL.js"
 export default async function tiktok_import()
 {
     const choose_streamer_query_string = "SELECT id, unique_id, stream_start FROM streamers ORDER BY last_processed ASC LIMIT 1";
-    const { id, unique_id, stream_start } = await Database.execute(choose_streamer_query_string, [ ], { one_response: true });
+    const { id, unique_id, stream_start } = await Database.execute(choose_streamer_query_string, [ ], { one_response: true }) ?? { };
+    if (id == null || id == undefined) return;
     const url = `https://tiktok.com/api-live/user/room/?aid=1988&sourceType=54&uniqueId=${unique_id}`;
     const tiktok_request = await fetch(url, { method: "GET" });
     const { data } = await tiktok_request.json();

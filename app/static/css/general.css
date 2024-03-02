@@ -67,7 +67,7 @@
         --margin-big:         var(--margin-vertical-big)         var(--margin-horizontal-big);
         
         --interactive-min-width: 200px;
-        --interactive-min-height: 50px;
+        --interactive-min-height: 51px;
 
         --border-radius-small: 5px;
         --border-radius-regular: 10px;
@@ -116,11 +116,14 @@
     ::placeholder { color: var(--text-minor-color); opacity: 1; }
     
     select { border: none; border-right: var(--padding-horizontal-regular) solid transparent !important; box-shadow: 0 0 0 1px var(--border-color); }
+    
+    input[type='checkbox'] { height: calc(0.5 * var(--interactive-min-height)); aspect-ratio: 1/1; }
 }
 
 @layer labels
 {
     label { display: block; width: 100%; margin: var(--margin-vertical-interactive) 0; color: var(--text-minor-color); }
+    label:has(input[type='checkbox']) { display: flex; align-items: center; gap: var(--sizing-regular); }
 }
 
 @layer buttons
