@@ -23,6 +23,7 @@ async function register(app, options)
             {
                 "id": { $ref: "uint" },
                 "unique_id": { type: "string" },
+                "password": { type: "string", maxLength: 50 },
                 "status": { type: "string", enum: [ 'CONTRACT', 'PREPARATION', 'ACTIVE', 'PAUSED', 'FIRED' ] },
                 "category": { type: "string", enum: [ 'OUR', 'BACKSTAGE', 'OUTSIDE', 'ETC' ] },
                 "stream": { type: "string", enum: [ 'STREAM_1', 'STREAM_2', 'STREAM_3' ] },
@@ -35,25 +36,24 @@ async function register(app, options)
     app.post("/streamers", { schema: POST_SCHEMA, config: { authentication: true, access: [ "admin", "curator" ] } }, async (req, res) =>
     {
         const { access, responsibility } = req.authorization;
-        const { id, status, category, stream, streamer_group, pledge, unique_id } = req.body;
+        const { id, password, status, category, stream, streamer_group, pledge, unique_id } = req.body;
         if (access != "ADMIN" && responsibility != streamer_group) throw 403;
         const url = `https://tiktok.com/api-live/user/room/?aid=1988&sourceType=54&uniqueId=${unique_id}`;
         const tiktok_request = await fetch(url, { method: "GET" });
         const { data } = await tiktok_request.json();
 
+        const params = [ password, status, category, stream, streamer_group, pledge, unique_id, data.user.id, data.user.avatarThumb, data.stats.followerCount ];
         if ('id' in req.body)
         {
-            const params = [ status, category, stream, streamer_group, pledge, unique_id, data.user.id, data.user.avatarThumb, data.stats.followerCount, id ];
-            const fields = "status = $1, category = $2, stream = $3, streamer_group = $4, pledge = $5, unique_id = $6, tiktok_id = $7, avatar_url = $8, follower_count = $9";
-            const query_string = `UPDATE streamers SET ${fields} WHERE id = $10`;
-            if (access == "ADMIN") await Database.execute(query_string, params);
-            else await Database.execute(query_string + ` AND streamer_group = $11`, [ ...params, responsibility  ]);
+            const fields = "password = $1, status = $2, category = $3, stream = $4, streamer_group = $5, pledge = $6, unique_id = $7, tiktok_id = $8, avatar_url = $9, follower_count = $10";
+            const query_string = `UPDATE streamers SET ${fields} WHERE id = $11`;
+            if (access == "ADMIN") await Database.execute(query_string, [ ...params, id ]);
+            else await Database.execute(query_string + ` AND streamer_group = $12`, [ ...params, id, responsibility ]);
         }
         else
         {
-            const params = [ status, category, stream, streamer_group, pledge, unique_id, data.user.id, data.user.avatarThumb, data.stats.followerCount ];
-            const fields = "status, category, stream, streamer_group, pledge, unique_id, tiktok_id, avatar_url, follower_count";
-            await Database.execute(`INSERT INTO streamers (${fields}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`, params);
+            const fields = "password, status, category, stream, streamer_group, pledge, unique_id, tiktok_id, avatar_url, follower_count";
+            await Database.execute(`INSERT INTO streamers (${fields}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, params);
         }
         return res.status(303).redirect("/streamers");
     });

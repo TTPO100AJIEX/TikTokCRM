@@ -105,7 +105,8 @@ function translateGroup(group)
                     <td>
                         <img src="<%=streamer.avatar_url%>" alt="avatar" width="50" height="50">
                         <span data-key="unique_id" data-value="<%=streamer.unique_id%>"><%=streamer.unique_id%></span>
-                        <span data-key="tiktok_id" data-value="<%=streamer.tiktok_id%>">id: <%=streamer.tiktok_id%></span>
+                        <span data-key="password" data-value="<%=streamer.password%>">id: <%=streamer.password%></span>
+                        <span data-key="tiktok_id" data-value="<%=streamer.tiktok_id%>" hidden>id: <%=streamer.tiktok_id%></span>
                     </td>
                     <td data-key="follower_count" data-value="<%=streamer.follower_count%>"><%=streamer.follower_count%></td>
                     <td data-key="status" data-value="<%=streamer.status%>"><%=translateStatus(streamer.status)%></td>
@@ -191,6 +192,10 @@ function translateGroup(group)
             <label>
                 UniqueId
                 <input type="text" name="unique_id" placeholder="Введите uniqueId">
+            </label>
+            <label>
+                Пароль стримера
+                <input type="text" name="password" maxlength="50" placeholder="Введите пароль">
             </label>
             <div>
                 <button type="button" class="secondary" data-modal="add_streamer" data-modal_action="close">Закрыть</button>

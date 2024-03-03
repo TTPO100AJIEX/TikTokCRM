@@ -241,6 +241,9 @@ paths:
                   $ref: "#/components/schemas/def-3"
                 unique_id:
                   type: string
+                password:
+                  type: string
+                  maxLength: 50
                 status:
                   type: string
                   enum:

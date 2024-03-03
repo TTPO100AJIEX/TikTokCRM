@@ -366,6 +366,10 @@
                                     "unique_id": {
                                         "type": "string"
                                     },
+                                    "password": {
+                                        "type": "string",
+                                        "maxLength": 50
+                                    },
                                     "status": {
                                         "type": "string",
                                         "enum": [
