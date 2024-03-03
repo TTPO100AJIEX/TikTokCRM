@@ -12,10 +12,18 @@ function translateDate(date)
         <button form="save_form">Сохранить</button>
         <h1>Учет данных</h1>
         <p>Данные стримеров о заработке и времени трансляции</p>
+        <div>
+            <input type="date" id="date_from">
+            <input type="date" id="date_to">
+        </div>
     </div>
 
     <form id="save_form" method="POST" action="/accounting">
         <table>
+            <colgroup>
+                <col></col>
+                <% for (const date of days) { %> <col data-value="<%=date.toISOString()%>"></col> <% } %>
+            </colgroup>
             <thead>
                 <tr>
                     <th>Стример</th>

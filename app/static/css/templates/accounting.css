@@ -1,5 +1,8 @@
+main > div > div { display: flex; gap: var(--sizing-regular); margin-top: var(--margin-vertical-regular); }
+main > div > div > input[type='date'] { width: unset; background: transparent; }
+
 td:first-of-type { display: grid; grid-template-columns: 50px auto; grid-template-rows: 1fr 1fr; column-gap: var(--sizing-regular); align-items: center; }
 td:first-of-type > img { grid-row: span 2; border-radius: var(--border-radius-regular); }
 
-label { margin: 0; }
-input { display: inline; padding: 0; margin: 0; min-width: unset; width: 6ch; min-height: unset; border: none; background: transparent; }
+table label { margin: 0; }
+table input { display: inline; padding: 0; margin: 0; min-width: unset; width: 6ch; min-height: unset; border: none; background: transparent; }
