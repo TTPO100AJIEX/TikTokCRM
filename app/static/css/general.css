@@ -115,7 +115,7 @@
     }
     ::placeholder { color: var(--text-minor-color); opacity: 1; }
     
-    select { border: none; border-right: var(--padding-horizontal-regular) solid transparent !important; box-shadow: 0 0 0 1px var(--border-color); }
+    select:not([multiple]) { border: none; border-right: var(--padding-horizontal-regular) solid transparent !important; box-shadow: 0 0 0 1px var(--border-color); }
     
     input[type='checkbox'] { height: calc(0.5 * var(--interactive-min-height)); aspect-ratio: 1/1; }
 }

@@ -213,6 +213,18 @@
                                             "STREAMER_BACKSTAGE"
                                         ]
                                     },
+                                    "streams": {
+                                        "type": "array",
+                                        "uniqueItems": true,
+                                        "items": {
+                                            "type": "string",
+                                            "enum": [
+                                                "STREAM_1",
+                                                "STREAM_2",
+                                                "STREAM_3"
+                                            ]
+                                        }
+                                    },
                                     "responsibility": {
                                         "type": "string",
                                         "enum": [

@@ -23,6 +23,12 @@ async function register(app, options)
                 "login": { $ref: "login" },
                 "password": { $ref: "password" },
                 "access": { type: "string", enum: [ 'ADMIN', 'CEO', 'CURATOR', 'STREAMER_UNILIVE', 'STREAMER_BACKSTAGE' ] },
+                "streams":
+                {
+                    type: "array",
+                    uniqueItems: true,
+                    items: { type: "string", enum: [ 'STREAM_1', 'STREAM_2', 'STREAM_3' ] }
+                },
                 "responsibility": { type: "string", enum: [ '', 'GROUP_1', 'GROUP_2', 'GROUP_3' ] },
                 "authentication": { $ref: "authentication" }
             }
@@ -34,13 +40,13 @@ async function register(app, options)
         req.body.password = await bcrypt.hash(req.body.password, config.bcrypt.saltRounds);
         if ('id' in req.body)
         {
-            const query_string = `UPDATE employees SET login = $1, password = $2, access = $3, responsibility = $4 WHERE id = $5`;
-            await Database.execute(query_string, [ req.body.login, req.body.password, req.body.access, req.body.responsibility, req.body.id ]);
+            const query_string = `UPDATE employees SET login = $1, password = $2, access = $3, streams = $4, responsibility = $5 WHERE id = $6`;
+            await Database.execute(query_string, [ req.body.login, req.body.password, req.body.access, req.body.streams, req.body.responsibility, req.body.id ]);
         }
         else
         {
-            const query_string = `INSERT INTO employees (login, password, access, responsibility) VALUES ($1, $2, $3, $4)`;
-            await Database.execute(query_string, [ req.body.login, req.body.password, req.body.access, req.body.responsibility ]);
+            const query_string = `INSERT INTO employees (login, password, access, streams, responsibility) VALUES ($1, $2, $3, $4, $5)`;
+            await Database.execute(query_string, [ req.body.login, req.body.password, req.body.access, req.body.streams, req.body.responsibility ]);
         }
         return res.status(303).redirect("/employees");
     });
