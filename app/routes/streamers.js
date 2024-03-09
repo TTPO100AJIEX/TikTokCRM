@@ -6,9 +6,24 @@ async function register(app, options)
     {
         let streamers = [ ];
         const { access, responsibility } = req.authorization;
-        const base_query_string = `SELECT * FROM streamers_view ORDER BY created ASC`;
-        if (access == "ADMIN") streamers = await Database.execute(base_query_string);
-        else streamers = await Database.execute(`${base_query_string} WHERE streamer_group = $1`, [ responsibility ]);
+        if (access == "ADMIN")
+        {
+            const query_string = `
+                SELECT *
+                FROM streamers_view
+                WHERE stream IN (SELECT unnest(streams) FROM employees WHERE id = $1)
+                ORDER BY created ASC`;
+            streamers = await Database.execute(query_string, [ req.authorization.id ]);
+        }
+        else
+        {
+            const query_string = `
+                SELECT *
+                FROM streamers_view
+                WHERE stream IN (SELECT unnest(streams) FROM employees WHERE id = $1) AND streamer_group = $2
+                ORDER BY created ASC`;
+            streamers = await Database.execute(query_string, [ req.authorization.id, responsibility ]);
+        }
         return res.render("general/layout.ejs", { template: "streamers", streamers });
     });
 
