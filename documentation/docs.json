@@ -225,14 +225,17 @@
                                             ]
                                         }
                                     },
-                                    "responsibility": {
-                                        "type": "string",
-                                        "enum": [
-                                            "",
-                                            "GROUP_1",
-                                            "GROUP_2",
-                                            "GROUP_3"
-                                        ]
+                                    "responsibilities": {
+                                        "type": "array",
+                                        "uniqueItems": true,
+                                        "items": {
+                                            "type": "string",
+                                            "enum": [
+                                                "GROUP_1",
+                                                "GROUP_2",
+                                                "GROUP_3"
+                                            ]
+                                        }
                                     },
                                     "authentication": {
                                         "$ref": "#/components/schemas/def-0"

@@ -57,7 +57,9 @@ function translateDate(date)
                         <span>Пароль: ********</span>
                     </td>
                     <td data-key="access" data-value="<%=employee.access%>"><%=translateAccess(employee.access)%></td>
-                    <td data-key="responsibility" data-value="<%=employee.responsibility%>"><%=translateResponsibility(employee.responsibility)%></td>
+                    <td data-key="responsibilities" data-value="<%=JSON.stringify(employee.responsibilities)%>">
+                        <%=translateResponsibility(employee.responsibility)%>
+                    </td>
                     <td><%=translateDate(employee.updated)%></td>
                     <td><%=translateDate(employee.created)%></td>
                     <td>
@@ -100,8 +102,7 @@ function translateDate(date)
             </label>
             <label>
                 Выберите группу ответственности
-                <select name="responsibility">
-                    <option value selected>Выберите группу ответственности</option>
+                <select name="responsibilities" multiple required>
                     <option value="GROUP_1">1 группа</option>
                     <option value="GROUP_2">2 группа</option>
                     <option value="GROUP_3">3 группа</option>
@@ -139,8 +140,7 @@ function translateDate(date)
             </label>
             <label>
                 Выберите группу ответственности
-                <select name="responsibility">
-                    <option value selected>Выберите группу ответственности</option>
+                <select name="responsibilities" multiple required>
                     <option value="GROUP_1">1 группа</option>
                     <option value="GROUP_2">2 группа</option>
                     <option value="GROUP_3">3 группа</option>

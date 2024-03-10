@@ -6,7 +6,7 @@ async function register(app, options)
 {
     app.get("/employees", { config: { access: "ceo" } }, async (req, res) =>
     {
-        const employees = await Database.execute(`SELECT id, login, access, responsibility, created, updated FROM employees ORDER BY created ASC`);
+        const employees = await Database.execute(`SELECT id, login, access, responsibilities::TEXT[], created, updated FROM employees ORDER BY created ASC`);
         return res.render("general/layout.ejs", { template: "employees", employees })
     });
 
@@ -29,24 +29,30 @@ async function register(app, options)
                     uniqueItems: true,
                     items: { type: "string", enum: [ 'STREAM_1', 'STREAM_2', 'STREAM_3' ] }
                 },
-                "responsibility": { type: "string", enum: [ '', 'GROUP_1', 'GROUP_2', 'GROUP_3' ] },
+                "responsibilities":
+                {
+                    type: "array",
+                    uniqueItems: true,
+                    items: { type: "string", enum: [ 'GROUP_1', 'GROUP_2', 'GROUP_3' ] }
+                },
                 "authentication": { $ref: "authentication" }
             }
         }
     };
     app.post("/employees", { schema: POST_SCHEMA, config: { authentication: true, access: "admin" } }, async (req, res) =>
     {
-        if (req.body.responsibility == '') req.body.responsibility = null;
         req.body.password = await bcrypt.hash(req.body.password, config.bcrypt.saltRounds);
-        if ('id' in req.body)
+        const { id, authentication, ...fields } = req.body;
+        if (id)
         {
-            const query_string = `UPDATE employees SET login = $1, password = $2, access = $3, streams = $4, responsibility = $5 WHERE id = $6`;
-            await Database.execute(query_string, [ req.body.login, req.body.password, req.body.access, req.body.streams, req.body.responsibility, req.body.id ]);
+            const parts = Object.keys(fields).map((value, index) => Database.format(`%I = $${index + 1}`, value)).join(',');
+            const query_string = `UPDATE employees SET ${parts} WHERE id = $${Object.keys(fields).length + 1}`;
+            await Database.execute(query_string, [ ...Object.values(fields), id ]);
         }
         else
         {
-            const query_string = `INSERT INTO employees (login, password, access, streams, responsibility) VALUES ($1, $2, $3, $4, $5)`;
-            await Database.execute(query_string, [ req.body.login, req.body.password, req.body.access, req.body.streams, req.body.responsibility ]);
+            const query_string = `INSERT INTO employees (login, password, access, streams, responsibilities) VALUES ($1, $2, $3, $4, $5)`;
+            await Database.execute(query_string, [ fields.login, fields.password, fields.access, fields.streams, fields.responsibilities ]);
         }
         return res.status(303).redirect("/employees");
     });

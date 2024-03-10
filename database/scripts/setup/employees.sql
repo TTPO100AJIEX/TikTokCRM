@@ -9,7 +9,7 @@ CREATE TABLE employees
     password CHAR(60) NOT NULL,
     access ACCESS NOT NULL,
     streams STREAMER_STREAM[] NOT NULL DEFAULT '{}',
-    responsibility STREAMER_GROUP,
+    responsibilities STREAMER_GROUP[] NOT NULL DEFAULT '{}',
     created TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

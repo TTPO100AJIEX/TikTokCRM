@@ -25,7 +25,15 @@ function loadModalData(ev)
     for (const element of [ ...data_elements, container ])
     {
         const { key, value } = element.dataset;
-        if (key in form.elements) form.elements[key].value = value;
+        if (!(key in form.elements)) continue;
+        const input = form.elements[key];
+        if (input.tagName == "SELECT" && input.multiple)
+        {
+            const values = JSON.parse(value);
+            for (const option of input.options) option.selected = values.includes(option.value);
+            continue;
+        }
+        form.elements[key].value = value;
     }
 }
 

@@ -19,7 +19,7 @@ async function register(app, options)
 {
     app.decorateReply("createSessionID", async function(login, password)
     {
-        const query_string = `SELECT id, login, password, access, responsibility FROM employees WHERE login = $1`;
+        const query_string = `SELECT id, login, password, access FROM employees WHERE login = $1`;
         const users = await Database.execute(query_string, [ login ]);
         if (users.length == 0) throw { statusCode: 401, message: "Пользователя не найден!" };
         for (const user of users)
@@ -62,7 +62,7 @@ async function register(app, options)
         let data = this.session_id_data;
         if (!data.expiration || new Date(data.expiration) <= new Date())
         {
-            const query_string = `SELECT id, login, password, access, responsibility FROM employees WHERE id = $1`;
+            const query_string = `SELECT id, login, password, access FROM employees WHERE id = $1`;
             data = await Database.execute(query_string, [ data.id ], { one_response: true });
             const lifetime = new Interval(config.website.user_data_expiration);
             data.expiration = Date.now() + lifetime.toMilliseconds();
