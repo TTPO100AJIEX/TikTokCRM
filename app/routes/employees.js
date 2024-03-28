@@ -6,7 +6,7 @@ async function register(app, options)
 {
     app.get("/employees", { config: { access: "ceo" } }, async (req, res) =>
     {
-        const employees = await Database.execute(`SELECT id, login, access, responsibilities::TEXT[], created, updated FROM employees ORDER BY created ASC`);
+        const employees = await Database.execute(`SELECT id, login, access, streams::TEXT[], responsibilities::TEXT[], created, updated FROM employees ORDER BY created ASC`);
         return res.render("general/layout.ejs", { template: "employees", employees })
     });
 

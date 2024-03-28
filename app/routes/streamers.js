@@ -5,9 +5,16 @@ async function register(app, options)
     app.get("/streamers", { config: { access: [ "ceo", "curator" ] } }, async (req, res) =>
     {
         let streamers = [ ];
-        const query_string = `SELECT * FROM streamers_view WHERE
-                stream IN (SELECT unnest(streams) FROM employees WHERE id = $1) AND
-                streamer_group IN (SELECT unnest(responsibilities) FROM employees WHERE id = $1)
+        const query_string = `
+            SELECT * FROM streamers_view
+            WHERE
+                (
+                    (SELECT access FROM employees WHERE id = $1) IN ('ADMIN', 'CEO')
+                ) OR
+                (
+                    stream IN (SELECT unnest(streams) FROM employees WHERE id = $1) AND
+                    streamer_group IN (SELECT unnest(responsibilities) FROM employees WHERE id = $1)
+                )
             ORDER BY created ASC`;
         streamers = await Database.execute(query_string, [ req.authorization.id ]);
         return res.render("general/layout.ejs", { template: "streamers", streamers });

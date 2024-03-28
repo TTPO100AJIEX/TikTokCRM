@@ -10,6 +10,15 @@ function translateAccess(access)
         case 'STREAMER_BACKSTAGE': return "Стример Backstage";
     }
 }
+function translateStream(group)
+{
+    switch (group)
+    {
+        case 'STREAM_1': return "Первый поток";
+        case 'STREAM_2': return "Второй";
+        case 'STREAM_3': return "Третий";
+    }
+}
 function translateResponsibility(responsibility)
 {
     switch (responsibility)
@@ -58,7 +67,10 @@ function translateDate(date)
                     </td>
                     <td data-key="access" data-value="<%=employee.access%>"><%=translateAccess(employee.access)%></td>
                     <td data-key="responsibilities" data-value="<%=JSON.stringify(employee.responsibilities)%>">
-                        <%=translateResponsibility(employee.responsibility)%>
+                        <%=translateResponsibility(employee.responsibilities[0])%>, ещё <%=employee.responsibilities.length%>
+                    </td>
+                    <td data-key="streams" data-value="<%=JSON.stringify(employee.streams)%>">
+                        <%=translateStream(employee.streams[0])%>, ещё <%=employee.streams.length%>
                     </td>
                     <td><%=translateDate(employee.updated)%></td>
                     <td><%=translateDate(employee.created)%></td>
@@ -136,6 +148,14 @@ function translateDate(date)
                     <option value="CURATOR">Куратор</option>
                     <option value="STREAMER_UNILIVE">Стример Unilive</option>
                     <option value="STREAMER_BACKSTAGE">Стример Backstage</option>
+                </select>
+            </label>
+            <label>
+                Выберите поток
+                <select name="streams" multiple required>
+                    <option value="STREAM_1">Первый поток</option>
+                    <option value="STREAM_2">Второй</option>
+                    <option value="STREAM_3">Третий</option>
                 </select>
             </label>
             <label>
