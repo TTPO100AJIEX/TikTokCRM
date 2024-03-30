@@ -61,7 +61,11 @@ async function register(app, options)
         else
         {
             const fields = "password, status, category, stream, streamer_group, pledge, unique_id, tiktok_id, avatar_url, follower_count";
-            await Database.execute(`INSERT INTO streamers (${fields}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, params);
+            const streamers_query_string = `INSERT INTO streamers (${fields}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+            const { id } = await Database.execute(streamers_query_string, params, { one_response: true });
+
+            const accounting_query_string = `INSERT INTO accounting (streamer_id, day) VALUES ($1, NOW()) ON CONFLICT (streamer_id, day) DO NOTHING`;
+            await Database.execute(accounting_query_string, [ id ]);
         }
         return res.status(303).redirect("/streamers");
     });
